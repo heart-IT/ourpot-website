@@ -1,0 +1,2384 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OurPot — A quiet notebook for what you spend</title>
+    <meta
+      name="description"
+      content="A private household ledger for one person or several. No account, no server, no ads \u2014 your entries stay on your own phones and sync directly between them."
+    />
+    <meta name="theme-color" content="#f9faf2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/webp" href="brand-icon.webp" />
+    <link rel="apple-touch-icon" href="brand-icon.png" />
+    <link rel="canonical" href="https://ourpot.heartit.tech/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="OurPot — A quiet notebook for what you spend" />
+    <meta
+      property="og:description"
+      content="A private household ledger for one person or several. No account, no server, no ads."
+    />
+    <meta property="og:url" content="https://ourpot.heartit.tech/" />
+    <meta property="og:site_name" content="OurPot" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:image" content="https://ourpot.heartit.tech/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="OurPot \u2014 a quiet notebook for what you spend. No account, no server."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "OurPot",
+        "url": "https://ourpot.heartit.tech/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "iOS, Android",
+        "isAccessibleForFree": true,
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "description": "A private household ledger for one person or several. No account, no server, no ads \u2014 entries stay on your own phones and sync directly between them.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "heartIT", "url": "https://heartit.tech/" }
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Manrope:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ---------------------------------------------------------------
+         Tokens — lifted verbatim from the app's src/theme.ts so the site
+         and the product cannot drift. Light first, dark is the app's
+         hand-tuned palette, not an inversion.
+         --------------------------------------------------------------- */
+      :root,
+      :root[data-theme='light'] {
+        color-scheme: light;
+
+        --surface: #f9faf2;
+        --surface-lowest: #ffffff;
+        --surface-low: #f3f4ed;
+        --surface-container: #edefe7;
+        --surface-high: #e7e9e1;
+        --surface-highest: #e1e3dc;
+
+        --on-surface: #191c18;
+        --on-surface-variant: #45483c;
+
+        --primary: #4f632d;
+        --on-primary: #ffffff;
+        --primary-container: #677c43;
+        --on-primary-container: #faffe8;
+
+        --secondary: #626034;
+        --tertiary: #5f5c4f;
+
+        --outline: #646657;
+        --outline-variant: #c6c8b8;
+        --divider: #c6c8b880;
+
+        --warning: #b78220;
+        --on-warning-surface: #7a4d00;
+
+        --nav-bg: rgba(249, 250, 242, 0.82);
+        --shot-edge: #d8dace;
+        --shot-fill: var(--raised);
+        --shot-bezel: 0px;
+      }
+
+      /* Dark is applied two ways, so the palette is written twice on purpose:
+         once for the OS preference (unless the reader has forced light) and
+         once for an explicit choice. CSS has no way to share one declaration
+         block across a media query and a selector. */
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          color-scheme: dark;
+
+          --surface: #14110d;
+          --surface-lowest: #0a0907;
+          --surface-low: #1c1813;
+          --surface-container: #211d18;
+          --surface-high: #28241f;
+          --surface-highest: #2e2a24;
+
+          --on-surface: #efe9da;
+          --on-surface-variant: #c5beae;
+
+          --primary: #b7cf8d;
+          --on-primary: #263400;
+          --primary-container: #3a4d19;
+          --on-primary-container: #d3eba7;
+
+          --secondary: #ccc993;
+          --tertiary: #ccc6b7;
+
+          --outline: #908b7d;
+          --outline-variant: #45483c;
+          --divider: #45483c80;
+
+          --warning: #f5c779;
+          --on-warning-surface: #f5c779;
+
+          --nav-bg: rgba(20, 17, 13, 0.82);
+          --shot-edge: #2e2a24;
+          /* A black shadow on a near-black ground draws nothing, so dark does
+             the lifting with fill: a bezel of surface-highest around the
+             screenshot, measuring 1.32:1 against the page. `none` here makes the claim in
+             --elev-object literally true rather than aspirational. */
+          --shot-fill: var(--surface-highest);
+          --shot-bezel: 5px;
+          --elev-object: none;
+        }
+      }
+      :root[data-theme='dark'] {
+          color-scheme: dark;
+
+          --surface: #14110d;
+          --surface-lowest: #0a0907;
+          --surface-low: #1c1813;
+          --surface-container: #211d18;
+          --surface-high: #28241f;
+          --surface-highest: #2e2a24;
+
+          --on-surface: #efe9da;
+          --on-surface-variant: #c5beae;
+
+          --primary: #b7cf8d;
+          --on-primary: #263400;
+          --primary-container: #3a4d19;
+          --on-primary-container: #d3eba7;
+
+          --secondary: #ccc993;
+          --tertiary: #ccc6b7;
+
+          --outline: #908b7d;
+          --outline-variant: #45483c;
+          --divider: #45483c80;
+
+          --warning: #f5c779;
+          --on-warning-surface: #f5c779;
+
+          --nav-bg: rgba(20, 17, 13, 0.82);
+          --shot-edge: #2e2a24;
+          --shot-fill: var(--surface-highest);
+          --shot-bezel: 5px;
+          --elev-object: none;
+      }
+
+      /* Web-only, DERIVED from the palettes above rather than added to them, so the
+         app stays the source of truth. Each resolves per theme on its own because
+         it references a token that already switches — no third palette block. */
+      :root {
+        /* One visible step up from whatever ground the element sits on. The
+           surface/surface-low pair measures 1.053:1 — a step you cannot see. */
+        --raised: var(--surface-container);
+        --raised-inner: var(--surface-high);
+        /* Ledger ruling. Derived from the ink, not the outline, so it lands at the
+           same quietness in both themes: 1.22:1 light / 1.27:1 dark against their
+           own ground. Off the outline token it measured 1.32 / 1.45 — texture you
+           noticed before the headline. */
+        --rule-ink: color-mix(in srgb, var(--on-surface) 10%, transparent);
+        /* One elevation, for one job: a device is a physical object on the page.
+           Light lifts it with shadow, dark lifts it with fill — the ORDER holds
+           in both, which is the part that matters. */
+        --elev-object: 0 2px 4px -2px rgb(0 0 0 / 0.06), 0 18px 40px -26px rgb(0 0 0 / 0.45);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        /* Sticky nav is ~56px; without this every #anchor lands under it. */
+        scroll-padding-top: 76px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+        color: var(--on-surface);
+        background: var(--surface);
+        line-height: 1.65;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* The app pairs Newsreader *italic* with Manrope; only the italic cuts
+         ship in assets/fonts, so upright Newsreader would be a web-only face. */
+      .serif {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+      }
+      /* label-sm — the one uppercase machine-voice role: eyebrows, chips, field
+         captions, device names, the link label. It was written out seven times at
+         five sizes and three trackings, so the scale DESIGN.md declares was not the
+         scale that shipped. One rule now; per-element rules keep only what differs. */
+      .label,
+      .strip li,
+      .field > span,
+      .dev-name,
+      .index .where,
+      .link-label,
+      .dev-list .wait,
+      .theme-btn {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--on-surface-variant);
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration-color: color-mix(in srgb, var(--primary) 35%, transparent);
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        text-decoration-color: currentColor;
+      }
+      :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 8px;
+        background: var(--surface-lowest);
+        color: var(--on-surface);
+        padding: 10px 16px;
+        border-radius: 9999px;
+        z-index: 100;
+      }
+      .skip:focus {
+        left: 16px;
+      }
+
+      .vh {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      .wrap {
+        width: min(100% - 40px, 1080px);
+        margin-inline: auto;
+      }
+      .narrow {
+        max-width: 720px;
+      }
+
+      section {
+        padding: clamp(56px, 9vw, 104px) 0;
+      }
+      .ruled {
+        border-top: 1px solid var(--divider);
+      }
+      /* Tonal rhythm. Reading sections drop a step to surface-low; sections
+         carrying a raised panel (the demo, the scratchpad, the table) stay on
+         the base ground so those panels still read as laid on top of it. */
+      .tint {
+        background: var(--raised);
+      }
+
+      h1,
+      h2,
+      h3 {
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+
+      /* ---------- Nav ---------- */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--divider);
+      }
+      @supports (animation-timeline: scroll()) {
+        .nav {
+          animation-name: nav-rule;
+          animation-duration: auto;
+          animation-timing-function: linear;
+          animation-timeline: scroll();
+          animation-range: 0 90px;
+        }
+        @keyframes nav-rule {
+          from {
+            border-bottom-color: transparent;
+          }
+        }
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 12px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: inherit;
+        text-decoration: none;
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .brand img {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 26px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .nav-links a {
+        color: var(--on-surface-variant);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+      /* Set by script as you scroll past each section. */
+      .nav-links a[aria-current] {
+        color: var(--primary);
+      }
+
+      /* Mirrors the app's own three-way preference
+         (src/hooks/useThemePreference.ts): system, light, dark. The dot reads
+         half-filled for auto, hollow for light, solid for dark. */
+      .theme-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 12px;
+        background: transparent;
+        border: 1px solid var(--outline);
+        border-radius: 9999px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .theme-btn:hover {
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+      .theme-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: 1px solid currentColor;
+        background: linear-gradient(to right, currentColor 0 50%, transparent 50%);
+      }
+      :root[data-theme='light'] .theme-dot {
+        background: transparent;
+      }
+      :root[data-theme='dark'] .theme-dot {
+        background: currentColor;
+      }
+      @media (max-width: 720px) {
+        .js .nav-links .theme-btn {
+          margin-top: 16px;
+          align-self: flex-start;
+        }
+      }
+
+      .menu-btn {
+        display: none;
+        width: 38px;
+        height: 34px;
+        place-items: center;
+        border: 1px solid var(--outline);
+        border-radius: 9999px;
+        background: transparent;
+        cursor: pointer;
+      }
+      .menu-btn:hover {
+        border-color: var(--primary);
+      }
+      .menu-bars,
+      .menu-bars::before,
+      .menu-bars::after {
+        display: block;
+        width: 15px;
+        height: 1.5px;
+        background: var(--on-surface);
+        border-radius: 2px;
+      }
+      .menu-bars {
+        position: relative;
+      }
+      .menu-bars::before,
+      .menu-bars::after {
+        content: '';
+        position: absolute;
+        left: 0;
+      }
+      .menu-bars::before {
+        top: -5px;
+      }
+      .menu-bars::after {
+        top: 5px;
+      }
+
+      /* Without script the links stay in the bar and wrap — usable, just
+         plainer. The collapsed menu is the enhancement, not the baseline. */
+      @media (max-width: 720px) {
+        .js .menu-btn {
+          display: grid;
+        }
+        .js .nav-links {
+          display: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 4px 20px 16px;
+          background: var(--surface);
+          border-bottom: 1px solid var(--divider);
+          font-size: 16px;
+        }
+        .js .nav-links.open {
+          display: flex;
+        }
+        .js .nav-links a {
+          padding: 13px 0;
+          border-top: 1px solid var(--divider);
+        }
+      }
+
+      /* ---------- Buttons ---------- */
+      /* The button token — Space Grotesk 14/600/20. The demo and scratchpad
+         controls are buttons too; they were sitting a step below it at 13px. */
+      .btn,
+      .demo-btn {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 22px;
+        border-radius: 9999px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--on-primary);
+      }
+      .btn-primary:hover {
+        background: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+      .btn-ghost {
+        border-color: var(--outline);
+        color: var(--on-surface);
+      }
+      .btn-ghost:hover {
+        border-color: var(--primary);
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        padding: clamp(56px, 10vw, 112px) 0 clamp(40px, 6vw, 72px);
+        position: relative;
+        isolation: isolate;
+      }
+      /* Account-book ruling. A pseudo-element rather than a background on .hero
+         itself, because a mask on .hero would fade the headline with it. */
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image: repeating-linear-gradient(
+          to bottom,
+          transparent 0 31px,
+          var(--rule-ink) 31px 32px
+        );
+        -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14% 55%, transparent);
+        mask-image: linear-gradient(to bottom, transparent, #000 14% 55%, transparent);
+      }
+      .hero h1 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(40px, 7.5vw, 68px);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        max-width: 15ch;
+      }
+      .hero p {
+        margin-top: 22px;
+        font-size: clamp(17px, 2.2vw, 20px);
+        color: var(--on-surface-variant);
+        max-width: 54ch;
+      }
+      .hero-actions {
+        margin-top: 32px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .status {
+        margin-top: 18px;
+        font-size: 13px;
+        color: var(--on-surface-variant);
+      }
+      .status b {
+        color: var(--on-surface);
+        font-weight: 600;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: clamp(32px, 6vw, 64px);
+        align-items: center;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1.05fr 0.95fr;
+        }
+      }
+
+      /* Light lifts the device with the one shadow; dark lifts it with the
+         bezel the shadow cannot draw. The image used to cover the fill
+         completely, so dark had only a 1px edge doing the work. */
+      .shot {
+        border: 1px solid var(--shot-edge);
+        border-radius: 26px;
+        overflow: hidden;
+        background: var(--shot-fill);
+        padding: var(--shot-bezel);
+        box-shadow: var(--elev-object);
+        max-width: 360px;
+        margin-inline: auto;
+      }
+      .shot img {
+        border-radius: calc(26px - var(--shot-bezel));
+      }
+
+      /* ---------- Trust strip ---------- */
+      .strip {
+        border-block: 1px solid var(--divider);
+        background: var(--raised);
+        padding: 18px 0;
+      }
+      .strip ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 36px;
+      }
+
+      /* ---------- Generic section head ---------- */
+      .head {
+        max-width: 62ch;
+        margin-bottom: clamp(32px, 5vw, 56px);
+      }
+      .head h2 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(28px, 4.4vw, 42px);
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        margin-top: 14px;
+      }
+      .head p {
+        margin-top: 16px;
+        color: var(--on-surface-variant);
+        font-size: 17px;
+      }
+
+      /* ---------- Ruled index ----------
+         Rows on a ruled page, not cards on a dashboard. DESIGN.md asks for
+         tonal layering and white-space over boxed containers. */
+      .index {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 48px;
+      }
+      @media (min-width: 880px) {
+        .index {
+          grid-template-columns: 1fr 1fr;
+        }
+        .index-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .index li {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        gap: 14px;
+        padding: 22px 0;
+        border-top: 1px solid var(--divider);
+      }
+      .index-num {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        padding-top: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+      .index h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .index .where {
+        margin-left: 9px;
+        white-space: nowrap;
+      }
+      .index p {
+        font-size: 15px;
+        color: var(--on-surface-variant);
+        margin-top: 7px;
+      }
+
+      /* ---------- Two-up prose ---------- */
+      .split {
+        display: grid;
+        gap: clamp(28px, 5vw, 56px);
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 880px) {
+        .split {
+          grid-template-columns: 0.9fr 1.1fr;
+        }
+        /* Only the split that carries a device: short prose beside a tall phone
+           left a void under the text. Centring balances the pair; the text-only
+           splits keep their top alignment. */
+        .split:has(.shot) {
+          align-items: center;
+        }
+      }
+      .split h2 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(28px, 4.4vw, 40px);
+        line-height: 1.15;
+      }
+      .prose p + p {
+        margin-top: 18px;
+      }
+      .prose p {
+        color: var(--on-surface-variant);
+        font-size: 17px;
+      }
+
+      /* ---------- What it doesn't do ---------- */
+      .nots {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 48px;
+      }
+      @media (min-width: 880px) {
+        .nots {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .nots li {
+        padding: 20px 0;
+        border-top: 1px solid var(--divider);
+      }
+      .nots h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .nots p {
+        margin-top: 7px;
+        font-size: 15px;
+        color: var(--on-surface-variant);
+      }
+
+      /* ---------- Scratchpad ----------
+         A real ledger, in the page. The site behaving the way the product
+         behaves: nothing leaves the browser, and you can walk away with the
+         data as a file. */
+      .js-only {
+        display: none;
+      }
+      .js .js-only {
+        display: block;
+      }
+      .pad {
+        border: 1px solid var(--divider);
+        border-radius: 16px;
+        background: var(--raised);
+        overflow: hidden;
+      }
+      .pad-form {
+        display: grid;
+        gap: 14px;
+        padding: 22px;
+        border-bottom: 1px solid var(--divider);
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 760px) {
+        .pad-form {
+          grid-template-columns: 8rem 1fr 1fr auto;
+          align-items: end;
+        }
+      }
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+      .field input,
+      .field select {
+        font-family: inherit;
+        font-size: 15px;
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--outline);
+        border-radius: 8px;
+        background: var(--surface-lowest);
+        color: var(--on-surface);
+      }
+      .field input:hover,
+      .field select:hover {
+        border-color: var(--primary);
+      }
+      /* theme.ts carries a `placeholder` token (the ink at ~66%) because the
+         browser default is illegible on paper. The page was not using it. */
+      .field input::placeholder {
+        color: color-mix(in srgb, var(--on-surface) 66%, transparent);
+      }
+      .pad-list {
+        list-style: none;
+      }
+      .pad-row {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        padding: 13px 22px;
+        border-bottom: 1px solid var(--divider);
+      }
+      .pad-main {
+        flex: 1;
+        min-width: 0;
+      }
+      .pad-cat {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .pad-note {
+        font-size: 13px;
+        color: var(--on-surface-variant);
+        overflow-wrap: anywhere;
+      }
+      .pad-when {
+        font-size: 12px;
+        color: var(--outline);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .pad-amt {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .pad-drop {
+        border: 0;
+        background: transparent;
+        color: var(--outline);
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      .pad-drop:hover {
+        color: var(--on-surface);
+      }
+      .pad-empty {
+        padding: 28px 22px;
+        font-size: 15px;
+        color: var(--outline);
+      }
+      .pad-total {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 15px 22px;
+        border-bottom: 1px solid var(--divider);
+        background: var(--raised-inner);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .pad-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        padding: 16px 22px;
+      }
+      .pad-say {
+        padding: 0 22px 18px;
+        font-size: 13px;
+        color: var(--on-surface-variant);
+      }
+
+      /* ---------- Limits ---------- */
+      .limits {
+        border-left: 2px solid var(--warning);
+        padding-left: 24px;
+        max-width: 68ch;
+      }
+
+      /* ---------- Disclosure ----------
+         One pattern for every place the page has a scannable claim and a longer
+         answer behind it: the FAQ, the honest limits, and the wire panel. The
+         claim is the part that has to be read; the explanation is opt-in. */
+      .disclose {
+        border-top: 1px solid var(--divider);
+      }
+      .disclose details {
+        border-bottom: 1px solid var(--divider);
+      }
+      .disclose summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 18px 40px 18px 0;
+        font-size: 17px;
+        font-weight: 600;
+        position: relative;
+      }
+      .disclose summary::-webkit-details-marker {
+        display: none;
+      }
+      .disclose summary::after {
+        content: '+';
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--on-surface-variant);
+      }
+      .disclose details[open] summary::after {
+        content: '\2013';
+      }
+      .disclose .answer {
+        padding: 0 0 22px;
+        color: var(--on-surface-variant);
+        font-size: 16px;
+        max-width: 66ch;
+      }
+      .disclose .answer p + p {
+        margin-top: 14px;
+      }
+      .disclose code {
+        font-family: 'Space Grotesk', ui-monospace, monospace;
+        font-size: 14px;
+        color: var(--on-surface);
+        background: var(--raised-inner);
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+      .faq {
+        max-width: 760px;
+      }
+
+      /* ---------- CTA ---------- */
+      .cta {
+        background: var(--raised);
+        border-block: 1px solid var(--divider);
+        text-align: center;
+      }
+      .cta h2 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(30px, 5vw, 46px);
+        line-height: 1.12;
+      }
+      .cta p {
+        margin: 18px auto 0;
+        max-width: 48ch;
+        color: var(--on-surface-variant);
+      }
+      .cta .hero-actions {
+        justify-content: center;
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        padding: 56px 0 40px;
+        font-size: 14px;
+      }
+      .foot-grid {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        padding-bottom: 32px;
+      }
+      .foot-grid p {
+        color: var(--on-surface-variant);
+        max-width: 32ch;
+        margin-top: 10px;
+      }
+      .foot-grid ul {
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .foot-grid a {
+        color: var(--on-surface-variant);
+        text-decoration: none;
+      }
+      .foot-grid a:hover {
+        color: var(--primary);
+      }
+      .foot-bottom {
+        border-top: 1px solid var(--divider);
+        padding-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--on-surface-variant);
+      }
+      .foot-bottom a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--on-surface-variant);
+        text-decoration: none;
+      }
+      .foot-bottom img {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+      }
+
+      /* ---------- Sync demo ----------
+         The page's one moving part. It exists to show local-first writing and
+         partition tolerance, which no paragraph does as quickly. */
+      .demo {
+        border: 1px solid var(--divider);
+        border-radius: 16px;
+        background: var(--raised);
+        overflow: hidden;
+      }
+      .demo-stage {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 780px) {
+        .demo-stage {
+          grid-template-columns: 1fr 168px 1fr;
+        }
+      }
+      .dev {
+        padding: 22px;
+      }
+      @media (min-width: 780px) {
+        .dev + .link + .dev {
+          border-left: 1px solid var(--divider);
+        }
+      }
+      .dev-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--divider);
+      }
+      /* The one label that keeps the ink: it names the device, and the state
+         beside it is already the quiet half of that pair. */
+      .dev-name {
+        color: var(--on-surface);
+      }
+      .dev-state {
+        font-size: 13px;
+        color: var(--on-surface-variant);
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+      .dev.off .dot {
+        background: var(--warning);
+      }
+      .dev.off .dev-state {
+        color: var(--on-warning-surface);
+      }
+      .dev-list {
+        list-style: none;
+      }
+      .dev-list li {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--divider);
+        font-size: 15px;
+      }
+      .dev-list li:last-child {
+        border-bottom: 0;
+      }
+      .dev-list .amt {
+        font-variant-numeric: tabular-nums;
+        color: var(--on-surface-variant);
+        white-space: nowrap;
+      }
+      .dev-list .wait {
+        color: var(--on-warning-surface);
+      }
+      .dev-right {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 11px;
+      }
+      .link {
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        gap: 10px;
+        padding: 26px 22px;
+        text-align: center;
+      }
+      .link-line {
+        width: 100%;
+        height: 1px;
+        background: var(--outline-variant);
+      }
+      .demo.severed .link-line {
+        background: repeating-linear-gradient(
+          to right,
+          var(--warning) 0 5px,
+          transparent 5px 11px
+        );
+      }
+      .demo.severed .link-label {
+        color: var(--on-warning-surface);
+      }
+      .demo-bar {
+        display: none;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 16px 22px;
+        border-top: 1px solid var(--divider);
+        background: var(--raised-inner);
+      }
+      .js .demo-bar {
+        display: flex;
+      }
+      .demo-btn {
+        padding: 9px 17px;
+        border-radius: 9999px;
+        border: 1px solid var(--outline);
+        background: transparent;
+        color: var(--on-surface);
+        cursor: pointer;
+        transition: border-color 0.15s ease;
+      }
+      .demo-btn:hover {
+        border-color: var(--primary);
+      }
+      .demo-status {
+        padding: 15px 22px;
+        border-top: 1px solid var(--divider);
+        font-size: 15px;
+        color: var(--on-surface-variant);
+      }
+      .js .demo-list-item-new {
+        animation: rowin 0.35s ease;
+      }
+      @keyframes rowin {
+        from {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+      }
+
+      /* ---------- Wire panel ---------- */
+      .wire {
+        max-width: 760px;
+      }
+
+      /* ---------- Reveal ----------
+         Scroll-driven CSS rather than an IntersectionObserver: it runs off the
+         main thread and needs no script.
+
+         Two deliberate choices keep it fail-safe. `animation-duration: auto`,
+         because the `animation` shorthand forces 0s and a progress-based
+         timeline needs auto to span its range. And NO fill mode: with
+         `fill: both` the backwards fill pins every element at `opacity: 0`,
+         so anything that stops the timeline advancing — an unsupported
+         engine, a throttled tab — hides the page permanently. Unfilled, the
+         resting state is the visible one and a dead timeline costs only the
+         animation. */
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .reveal {
+            animation-name: reveal;
+            animation-duration: auto;
+            animation-timing-function: linear;
+            animation-timeline: view();
+            animation-range: entry 0% entry 45%;
+          }
+        }
+      }
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+
+    <script>
+      // Before first paint: a stored choice has to be on the element already,
+      // or the page paints the OS scheme and then snaps to the chosen one.
+      ;(function () {
+        var root = document.documentElement
+        root.classList.add('js')
+        try {
+          var saved = localStorage.getItem('ourpot.theme')
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved)
+        } catch (err) {
+          /* storage unavailable — fall through to the OS scheme */
+        }
+      })()
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="wrap nav-inner">
+        <a class="brand" href="#main">
+          <img src="brand-icon.webp" alt="" width="128" height="128" />
+          <span>ourpot</span>
+        </a>
+        <div class="nav-right">
+          <div class="nav-links" id="nav-links">
+            <a href="#what">What it is</a>
+            <a href="#sync">Sync</a>
+            <a href="#inside">Inside</a>
+            <a href="#limits">Limits</a>
+            <a href="#faq">FAQ</a>
+            <button class="theme-btn" type="button" id="theme-btn">
+              <span class="theme-dot" aria-hidden="true"></span>
+              <span id="theme-label">Auto</span>
+            </button>
+          </div>
+          <a class="btn btn-primary" href="#get">Get OurPot</a>
+          <button
+            class="menu-btn"
+            type="button"
+            id="menu-btn"
+            aria-controls="nav-links"
+            aria-expanded="false"
+            aria-label="Open menu"
+          >
+            <span class="menu-bars"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <!-- ================= Hero ================= -->
+      <header class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <h1>A quiet notebook for what you spend.</h1>
+            <p>
+              Write down what you spend. See it in a shape you can read. Kept alone, or shared
+              with the people you live with — on your phones only, with no account and no
+              server.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#get">Get OurPot</a>
+              <a class="btn btn-ghost" href="#what">What it is</a>
+            </div>
+            <p class="status">
+              Free on the App Store and Google Play.
+            </p>
+          </div>
+          <div class="shot">
+            <img
+              src="screen-ledger.webp"
+              alt="The OurPot Expenses tab: a month total of ₹31,730, category filters, and five entries with their categories."
+              width="640"
+              height="1422"
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+      </header>
+
+      <div class="strip">
+        <div class="wrap">
+          <ul>
+            <li>No account</li>
+            <li>No server</li>
+            <li>Encrypted in transit</li>
+            <li>CSV in and out</li>
+            <li>No ads, ever</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ================= What it is ================= -->
+      <section id="what">
+        <div class="wrap split reveal">
+          <div>
+            <span class="label">What it is</span>
+            <h2>A notebook, not a dashboard.</h2>
+          </div>
+          <div class="prose">
+            <p>
+              OurPot is a quiet ledger for a household — kept alone or shared. You write, anyone
+              you invite writes too, and what you record is what you see.
+            </p>
+            <p>
+              There are no charts that try to explain you, no streaks to keep up with, nothing
+              coaching you about how you spend. Just what you wrote down, and what it comes to.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Sync ================= -->
+      <section id="sync" class="ruled">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">How it syncs</span>
+            <h2>There is no OurPot server.</h2>
+            <p>
+              An entry is written to your own phone first, and only then shared &mdash; directly
+              &mdash; with the other phones in your household. No machine of ours sits in the
+              middle, so there is nothing for a write to wait on. Try taking a phone offline.
+            </p>
+          </div>
+
+          <div class="demo reveal" id="demo">
+            <div class="demo-stage">
+              <div class="dev" id="devA">
+                <div class="dev-head">
+                  <span class="dev-name">Maya&rsquo;s phone</span>
+                  <span class="dev-state"><span class="dot"></span>Online</span>
+                </div>
+                <ul class="dev-list" id="listA">
+                  <li><span>Groceries</span><span class="amt num">&#8377;1,240</span></li>
+                  <li><span>Bus fare</span><span class="amt num">&#8377;60</span></li>
+                </ul>
+              </div>
+
+              <div class="link">
+                <span class="link-line"></span>
+                <span class="link-label" id="linkLabel">Direct<br />Noise-encrypted</span>
+                <span class="link-line"></span>
+              </div>
+
+              <div class="dev" id="devB">
+                <div class="dev-head">
+                  <span class="dev-name">Ravi&rsquo;s phone</span>
+                  <span class="dev-state"><span class="dot"></span><span id="stateB">Online</span></span>
+                </div>
+                <ul class="dev-list" id="listB">
+                  <li><span>Groceries</span><span class="amt num">&#8377;1,240</span></li>
+                  <li><span>Bus fare</span><span class="amt num">&#8377;60</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="demo-bar">
+              <button class="demo-btn" type="button" id="btnRecord">Add on Maya&rsquo;s phone</button>
+              <button class="demo-btn" type="button" id="btnLink">Take Ravi&rsquo;s phone offline</button>
+              <button class="demo-btn" type="button" id="btnReset">Reset</button>
+            </div>
+
+            <p class="demo-status" id="demoStatus" aria-live="polite">
+              Both phones hold the whole ledger. Neither one is the copy of record.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Solo or shared ================= -->
+      <section class="ruled tint">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">Solo or shared</span>
+            <h2>One notebook. One person, or several.</h2>
+            <p>
+              A household is anyone who repeatedly shares real costs — a couple, roommates, a
+              family, a travel group. Or just you: solo is a fully supported mode, not a waiting
+              room. Nobody can find you or ask to join. It only ever holds the people you invited,
+              whenever you decide to invite them.
+            </p>
+          </div>
+          <ol class="index index-3 reveal">
+            <li>
+              <span class="index-num">01</span>
+              <div>
+                <h3>Start a notebook<span class="where">On your own</span></h3>
+                <p>
+                  Open the app, pick a currency, start recording. Nothing to sign up for,
+                  nothing to confirm by email.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">02</span>
+              <div>
+                <h3>Pair a second phone<span class="where">Together</span></h3>
+                <p>
+                  One device makes an invite, the other scans it. Both people read the same
+                  twelve-character code aloud, and the first device admits the second by hand.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">03</span>
+              <div>
+                <h3>Everyone writes<span class="where">Afterwards</span></h3>
+                <p>
+                  Every member records into the same ledger. A phone that was off catches up on
+                  its own the next time the two can reach each other.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= Inside ================= -->
+      <section id="inside" class="ruled">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">Inside the app</span>
+            <h2>What is actually in the app.</h2>
+            <p>Three tabs — Expenses, Plan, Settings. This is the whole of it.</p>
+          </div>
+
+          <ol class="index reveal">
+            <li>
+              <span class="index-num">01</span>
+              <div>
+                <h3>Record and read<span class="where">Expenses</span></h3>
+                <p>Pooled by default, split when it matters. Up to four receipts on an entry, and press and hold the add button to record several in a row.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">02</span>
+              <div>
+                <h3>Pots, budgets, categories<span class="where">Plan</span></h3>
+                <p>Organise spending into pots &mdash; household, a trip, whatever fits. Set optional budgets per category and see where the month stands.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">03</span>
+              <div>
+                <h3>Recurring and upcoming<span class="where">Plan</span></h3>
+                <p>Turn an entry into a recurring rule for rent, bills, or subscriptions. The next entry shows up under Upcoming.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">04</span>
+              <div>
+                <h3>Settlement<span class="where">Plan</span></h3>
+                <p>One net figure per person for the month, across every split entry in it, so you can settle up without keeping a running tab. Pooled entries need no settling.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">05</span>
+              <div>
+                <h3>A currency per pot<span class="where">Currency</span></h3>
+                <p>Each pot carries its own currency, chosen when you create it. A household default seeds new pots; existing pots keep what they were given.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">06</span>
+              <div>
+                <h3>A quiet sign-off<span class="where">Month turn</span></h3>
+                <p>An opt-in ritual at the end of a month: read it together, sign off, move on. It does not freeze anything.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">07</span>
+              <div>
+                <h3>Import and export<span class="where">Your data</span></h3>
+                <p>Bring a history in from a CSV, or from a bank or Google Pay PDF statement read on the phone itself. Export yours whenever you like &mdash; both under Settings &rsaquo; Your data. No lock-in.</p>
+              </div>
+            </li>
+            <li>
+              <span class="index-num">08</span>
+              <div>
+                <h3>A 24-word phrase<span class="where">Recovery</span></h3>
+                <p>Thirty-two bytes of randomness, written down as words you can keep on paper. It restores who you are &mdash; see the limits below for what it does not restore.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= Recording ================= -->
+      <section class="ruled tint">
+        <div class="wrap split reveal">
+          <div class="shot">
+            <img
+              src="screen-add.webp"
+              alt="The add-entry sheet: an amount, category chips with Groceries chosen, a note, and the pot and date under More details."
+              width="640"
+              height="1422"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <span class="label">Recording</span>
+            <h2>Pooled by default.</h2>
+            <div class="prose" style="margin-top: 18px">
+              <p>
+                Money is treated as <em>ours</em>. Record an expense and it lands in the shared
+                pot — no one owes anyone anything, and there is nothing to settle later.
+              </p>
+              <p>
+                Split mode is there for the times it matters, one tap away on the same sheet, and
+                stays out of the way the rest of the time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Scratchpad ================= -->
+      <section id="try" class="ruled js-only">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">Try it</span>
+            <h2>Write one down, here.</h2>
+            <p>
+              A working ledger, in this page. Nothing is sent anywhere: it stays in this browser
+              and nowhere else &mdash; the same bargain the app makes with your phone. When you
+              install OurPot, bring it with you as a file.
+            </p>
+          </div>
+
+          <div class="pad reveal" id="pad">
+            <form class="pad-form" id="pad-form">
+              <label class="field">
+                <span>Amount</span>
+                <input id="pad-amount" type="text" inputmode="decimal" placeholder="1240" required />
+              </label>
+              <label class="field">
+                <span>Category</span>
+                <input id="pad-category" type="text" list="pad-cats" placeholder="Groceries" />
+                <datalist id="pad-cats">
+                  <option value="Groceries"></option>
+                  <option value="Eating Out"></option>
+                  <option value="Fuel"></option>
+                  <option value="Rent"></option>
+                  <option value="Transport"></option>
+                  <option value="Medical"></option>
+                  <option value="Subscriptions"></option>
+                  <option value="Household"></option>
+                  <option value="Internet"></option>
+                  <option value="Entertainment"></option>
+                </datalist>
+              </label>
+              <label class="field">
+                <span>Note</span>
+                <input id="pad-note" type="text" placeholder="What was it for?" />
+              </label>
+              <button class="demo-btn" type="submit">Add</button>
+            </form>
+
+            <ul class="pad-list" id="pad-list"></ul>
+            <p class="pad-empty" id="pad-empty">Nothing recorded yet.</p>
+
+            <div class="pad-total">
+              <span id="pad-count">0 entries</span>
+              <span id="pad-sum">&mdash;</span>
+            </div>
+
+            <div class="pad-bar">
+              <button class="demo-btn" type="button" id="pad-csv">Download as CSV</button>
+              <button class="demo-btn" type="button" id="pad-clear">Clear</button>
+              <label class="field" style="margin-left: auto">
+                <span class="vh">Currency</span>
+                <select id="pad-currency">
+                  <option value="INR">INR &#8377;</option>
+                  <option value="USD">USD $</option>
+                  <option value="EUR">EUR &euro;</option>
+                  <option value="GBP">GBP &pound;</option>
+                  <option value="AUD">AUD $</option>
+                  <option value="CAD">CAD $</option>
+                  <option value="SGD">SGD $</option>
+                </select>
+              </label>
+            </div>
+            <p class="pad-say" id="pad-say" aria-live="polite">
+              The file carries the columns OurPot&rsquo;s importer reads, so Settings &rsaquo; Your
+              data &rsaquo; Import a file takes it back. Pick the currency the pot you import into
+              uses &mdash; a mismatch is refused rather than converted.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= On the wire ================= -->
+      <section class="ruled tint">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">On the wire</span>
+            <h2>What actually leaves your phone.</h2>
+          </div>
+          <div class="wire disclose reveal">
+            <details>
+              <summary>What a stranger on the network sees</summary>
+              <div class="answer"><p>A 32-byte topic &mdash; <code>BLAKE2b("ourpot:discovery:v1" || group key)</code>. Your household&rsquo;s key is what goes into the hash, never what comes out of it.</p></div>
+            </details>
+            <details>
+              <summary>How two phones find each other</summary>
+              <div class="answer"><p>The public Hyperswarm DHT that every <a href="https://holepunch.to/" target="_blank" rel="noopener">Holepunch</a> app shares. We run no bootstrap nodes and no relays of our own, so there is no OurPot machine to breach or shut down. The first connection on a home network takes eight to fifteen seconds &mdash; a lookup and a handshake; after that an entry crosses the open link as soon as it is written.</p></div>
+            </details>
+            <details>
+              <summary>What the connection is</summary>
+              <div class="answer"><p>A Noise handshake keyed to your device&rsquo;s own Ed25519 identity. The link is encrypted before a single entry crosses it, over Bluetooth exactly as over the internet.</p></div>
+            </details>
+            <details>
+              <summary>Who can get into a household</summary>
+              <div class="answer"><p>Only someone an existing member lets in by hand. A valid invite is not enough on its own: both phones must show the same code, and a person has to confirm it matches.</p></div>
+            </details>
+            <details>
+              <summary>Where your signing key lives</summary>
+              <div class="answer"><p>Your phone makes its own key the first time you open the app, and that key signs every entry you add. It is kept in the iOS Keychain or the Android Keystore, marked for this device only, so it never rides along to iCloud or anywhere else.</p></div>
+            </details>
+            <details>
+              <summary>Syncing with no internet at all</summary>
+              <div class="answer"><p>Two phones in the same room can sync over Bluetooth instead &mdash; off by default, in Settings &rsaquo; Household.</p></div>
+            </details>
+            <details>
+              <summary>Where entries rest</summary>
+              <div class="answer"><p>In the app&rsquo;s own storage on each phone, under iOS Data Protection or Android&rsquo;s file-based encryption. The app refuses to start if it finds itself on storage the operating system does not protect.</p></div>
+            </details>
+            <details>
+              <summary>What is not encrypted yet</summary>
+              <div class="answer"><p>A second layer of our own, on top of the phone&rsquo;s, for the shared ledger. The app&rsquo;s accepted-risks document records it as a known gap rather than a solved problem.</p></div>
+            </details>
+            <details>
+              <summary>What we collect</summary>
+              <div class="answer"><p>Nothing. There is no analytics SDK in the build, and nowhere for one to report to.</p></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Comparison ================= -->
+      <section class="ruled">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">Built differently</span>
+            <h2>Not a budgeting app. Not a Splitwise replacement.</h2>
+            <p>
+              What it does not do is as deliberate as what it does &mdash; and this is the
+              whole list, not the flattering half.
+            </p>
+          </div>
+          <ul class="nots reveal">
+            <li>
+              <h3>No account, no password, no email</h3>
+              <p>There is nothing to create, and nothing to be locked out of. You open it and start.</p>
+            </li>
+            <li>
+              <h3>No bank connections</h3>
+              <p>
+                Nothing reads your accounts. You write down what you spent, or hand the app a
+                CSV or a statement PDF, which it reads on the phone and never uploads.
+              </p>
+            </li>
+            <li>
+              <h3>No analytics, no crash reports</h3>
+              <p>
+                We could not see how you use this even if we wanted to. Nothing in the app
+                measures you, and there is no account any measurement could be attached to.
+              </p>
+            </li>
+            <li>
+              <h3>No notifications</h3>
+              <p>
+                The app never asks for your attention. It has no way to &mdash; nothing in it can
+                send you anything.
+              </p>
+            </li>
+            <li>
+              <h3>No ads, no purchases, no subscription</h3>
+              <p>Free, and not the kind of free where you are the product. There is no server to pay for.</p>
+            </li>
+            <li>
+              <h3>No scores, streaks, or advice</h3>
+              <p>
+                Nothing here grades your month. It records what you tell it and shows you the
+                total.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= Limits ================= -->
+      <section id="limits" class="ruled tint">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">Honest limits</span>
+            <h2>What having no server costs you.</h2>
+            <p>
+              These are real trade-offs in this release, not fine print. You should know them before you
+              trust a notebook with a year of your spending.
+            </p>
+          </div>
+          <div class="limits disclose reveal">
+            <details>
+              <summary>Losing every device loses your entries.</summary>
+              <div class="answer"><p>If another household phone still holds the notebook, a replacement pairs and the history comes back. Alone, your safety net is the encrypted backup file you export yourself. With no other device and no backup, the 24-word phrase brings back your identity but not your entries — they lived only on that phone.</p></div>
+            </details>
+            <details>
+              <summary>The encrypted backup export is solo-only.</summary>
+              <div class="answer"><p>Once a household has admitted a second writer, one device's log is no longer the whole ledger, so the export is deliberately refused. A paired household's safety net is the other phone.</p></div>
+            </details>
+            <details>
+              <summary>Settlement is one household-wide net, a month at a time.</summary>
+              <div class="answer"><p>Not per pot, and not across months &mdash; the figure covers the one month you are reading. When its splits span more than one currency there is no combined net, because raw minor units from two currencies do not add up; each currency gets its own settle-up instead.</p></div>
+            </details>
+            <details>
+              <summary>Pairing needs both people present.</summary>
+              <div class="answer"><p>Both devices show a twelve-character code that has to be read aloud and matched. It is the only thing standing between an invite and an impostor.</p></div>
+            </details>
+            <details>
+              <summary>One household to a phone.</summary>
+              <div class="answer"><p>This release carries a single household. There is no way to keep, say, a flat ledger and a family ledger side by side on the same phone &mdash; that takes two phones, or waiting for a version that allows it.</p></div>
+            </details>
+            <details>
+              <summary>Switching households is one-way.</summary>
+              <div class="answer"><p>Leave your household, join a different one, and this phone can never go back to the first. Its writing identity is reset on the way through, and the only route back is to start again as a new member with a new identity.</p></div>
+            </details>
+            <details>
+              <summary>Some routers never let two phones meet.</summary>
+              <div class="answer"><p>Direct connections are made by punching through your routers. A minority of networks &mdash; carrier-grade NAT, some office Wi-Fi &mdash; refuse to be punched through, and with no relay of ours to fall back on, those two phones will not sync over the internet. They will still sync on a shared Wi-Fi network, or over Bluetooth in the same room.</p></div>
+            </details>
+            <details>
+              <summary>Phone only, and no telemetry.</summary>
+              <div class="answer"><p>iPad is not supported in this release. And because nothing is reported back, a bug you don't tell us about is a bug we never learn happened.</p></div>
+            </details>
+                    </div>
+        </div>
+      </section>
+
+      <!-- ================= FAQ =================
+           The third user of the disclosure pattern, per DESIGN.md §3. It holds
+           only what no other section owns — what an uninstall costs, reporting
+           a bug by hand, what outlives the project, what the licence gives you.
+           Anything already homed above stays homed above. -->
+      <section id="faq" class="ruled">
+        <div class="wrap">
+          <div class="head reveal">
+            <span class="label">Questions</span>
+            <h2>What people ask before they trust it.</h2>
+          </div>
+          <div class="faq disclose reveal">
+            <details>
+              <summary>Does uninstalling take my notebook with it?</summary>
+              <div class="answer">
+                <p>
+                  Yes. Everything OurPot holds sits in the app&rsquo;s own storage on the phone, so
+                  removing the app removes the notebook and this phone&rsquo;s membership of the
+                  household with it. An update from the store is not a removal &mdash; it keeps
+                  everything.
+                </p>
+                <p>
+                  Moving to a new phone is a pairing, not a reinstall: bring the new phone into
+                  the household from the old one, and the history follows.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>Nothing reports itself. So how do I report a bug?</summary>
+              <div class="answer">
+                <p>
+                  By hand &mdash; that is the other side of an app that does not watch you. After
+                  a crash: Settings &rsaquo; Advanced &rsaquo; Recent crashes &rsaquo; Share. For
+                  anything that went wrong quietly: Settings &rsaquo; Help &rsaquo; Share
+                  diagnostic bundle, which writes a JSON file of engine state with the amounts,
+                  the notes and the payer identities stripped out.
+                </p>
+                <p>
+                  Either one can go on an
+                  <a href="https://github.com/heart-IT/ourpot-releases/issues" target="_blank" rel="noopener">issue</a>
+                  or to
+                  <a href="mailto:rahulgarg_su@proton.me?subject=OurPot%20bug">rahulgarg_su@proton.me</a>,
+                  with what you were doing at the time.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>What happens to my notebook if OurPot stops being made?</summary>
+              <div class="answer">
+                <p>
+                  Nothing switches off, because nothing of ours is running. The app on your
+                  phones keeps working the way it works today, and the CSV export is the door
+                  out &mdash; to a spreadsheet, or to whatever you pick next.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>What does the licence give me?</summary>
+              <div class="answer">
+                <p>
+                  OurPot is under Apache-2.0: you may use it, change it and pass it on, on the
+                  terms in that licence. It costs nothing, and there is no server bill sitting
+                  behind it that would have to be paid by someone later.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section id="get" class="cta">
+        <div class="wrap narrow">
+          <h2>Start a notebook.</h2>
+          <p>
+            OurPot is free. There is no account to make &mdash; install it and start writing.
+          </p>
+          <!-- The App Store href is a PLACEHOLDER: apps.apple.com needs the numeric app ID
+               App Store Connect assigns to the listing. It is deliberately written as an
+               in-page anchor, so the link check fails on it until the real id lands. -->
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="https://play.google.com/store/apps/details?id=com.ourpot.app"
+              >Get it on Google Play</a
+            >
+            <a class="btn btn-ghost" href="#app-store-id-needed">Download on the App Store</a>
+          </div>
+          <p class="status">
+            Free, for iPhone and Android.
+            <a href="https://heartit.tech/ourpot/privacy/">Read the privacy policy</a>.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div>
+            <span class="serif" style="font-size: 20px">ourpot</span>
+            <p>A quiet notebook for what a household spends. Kept alone or shared, on your own phones.</p>
+          </div>
+          <div>
+            <span class="label">Product</span>
+            <ul>
+              <li><a href="#what">What it is</a></li>
+              <li><a href="#inside">Inside the app</a></li>
+              <li><a href="#sync">How it syncs</a></li>
+              <li><a href="#limits">Honest limits</a></li>
+              <li><a href="#faq">Questions</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">Trust</span>
+            <ul>
+              <li><a href="https://heartit.tech/ourpot/privacy/">Privacy policy</a></li>
+              <li><a href="#sync">How sync works</a></li>
+              <li><a href="#inside">Your data</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">Contact</span>
+            <ul>
+              <li><a href="mailto:rahulgarg_su@proton.me">rahulgarg_su@proton.me</a></li>
+              <li><a href="https://heartit.tech/">heartit.tech</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>&copy; 2026 heartIT. Apache-2.0.</span>
+          <a href="https://heartit.tech/" target="_blank" rel="noopener">
+            <img src="heartit-logo-44.webp" alt="" width="44" height="44" />
+            <span>heartIT</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Theme: system -> light -> dark, the same three states the app offers.
+      ;(function () {
+        const btn = document.getElementById('theme-btn')
+        const label = document.getElementById('theme-label')
+        if (!btn || !label) return
+
+        const root = document.documentElement
+        const KEY = 'ourpot.theme'
+        const ORDER = ['system', 'light', 'dark']
+        const NAMES = { system: 'Auto', light: 'Light', dark: 'Dark' }
+        const GROUND = { light: '#f9faf2', dark: '#14110d' }
+
+        let mode = 'system'
+        try {
+          const saved = localStorage.getItem(KEY)
+          if (saved === 'light' || saved === 'dark') mode = saved
+        } catch (err) {
+          /* storage unavailable */
+        }
+
+        // The two <meta name="theme-color"> tags are keyed to the OS query, so a
+        // forced theme needs one that always matches. First match wins, so it
+        // goes at the front of <head> and is removed again on 'system'.
+        function paintChrome() {
+          const existing = document.getElementById('theme-color-forced')
+          if (mode === 'system') {
+            if (existing) existing.remove()
+            return
+          }
+          const meta = existing || document.createElement('meta')
+          meta.id = 'theme-color-forced'
+          meta.name = 'theme-color'
+          meta.content = GROUND[mode]
+          if (!existing) document.head.insertBefore(meta, document.head.firstChild)
+        }
+
+        function apply() {
+          if (mode === 'system') root.removeAttribute('data-theme')
+          else root.setAttribute('data-theme', mode)
+          label.textContent = NAMES[mode]
+          btn.setAttribute('aria-label', 'Theme: ' + NAMES[mode].toLowerCase() + '. Change.')
+          paintChrome()
+        }
+
+        btn.addEventListener('click', () => {
+          mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length]
+          try {
+            if (mode === 'system') localStorage.removeItem(KEY)
+            else localStorage.setItem(KEY, mode)
+          } catch (err) {
+            /* preference is session-only */
+          }
+          apply()
+        })
+
+        apply()
+      })()
+
+      // Collapsed nav on small screens. The links are in the bar by default,
+      // so this only ever tidies them away — it never hides the only copy.
+      ;(function () {
+        const btn = document.getElementById('menu-btn')
+        const links = document.getElementById('nav-links')
+        if (!btn || !links) return
+
+        function setOpen(open) {
+          links.classList.toggle('open', open)
+          btn.setAttribute('aria-expanded', String(open))
+          btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+        }
+
+        btn.addEventListener('click', () => {
+          setOpen(btn.getAttribute('aria-expanded') !== 'true')
+        })
+        // Closing on navigation matters: an open menu makes the bar taller
+        // than the scroll-padding that keeps anchors clear of it.
+        links.addEventListener('click', (e) => {
+          if (e.target.closest('a')) setOpen(false)
+        })
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setOpen(false)
+        })
+      })()
+
+      // Mark the section you are currently reading in the nav.
+      ;(function () {
+        if (!window.IntersectionObserver) return
+        const pairs = []
+        for (const a of document.querySelectorAll('#nav-links a')) {
+          const target = document.querySelector(a.getAttribute('href'))
+          if (target) pairs.push([target, a])
+        }
+        if (!pairs.length) return
+
+        const visible = new Set()
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) visible.add(entry.target)
+              else visible.delete(entry.target)
+            }
+            // pairs is in document order, so the first still-visible section
+            // is the topmost one on screen.
+            const current = pairs.find(([target]) => visible.has(target))
+            for (const [target, link] of pairs) {
+              if (current && target === current[0]) link.setAttribute('aria-current', 'true')
+              else link.removeAttribute('aria-current')
+            }
+          },
+          { rootMargin: '-80px 0px -55% 0px' }
+        )
+        for (const [target] of pairs) io.observe(target)
+      })()
+
+      // Sync demo. Local-first write, then reconciliation — shown rather than
+      // claimed. Controls only exist when scripting does; the markup ships in
+      // the converged state so a reader without JS still sees two phones that
+      // agree.
+      ;(function () {
+        const demo = document.getElementById('demo')
+        if (!demo) return
+
+        const listA = document.getElementById('listA')
+        const listB = document.getElementById('listB')
+        const devB = document.getElementById('devB')
+        const stateB = document.getElementById('stateB')
+        const linkLabel = document.getElementById('linkLabel')
+        const status = document.getElementById('demoStatus')
+        const btnRecord = document.getElementById('btnRecord')
+        const btnLink = document.getElementById('btnLink')
+        const btnReset = document.getElementById('btnReset')
+
+        const SEED = [
+          { label: 'Groceries', amount: '\u20b91,240' },
+          { label: 'Bus fare', amount: '\u20b960' }
+        ]
+        const NEXT = [
+          { label: 'Chemist', amount: '\u20b9310' },
+          { label: 'Milk', amount: '\u20b952' },
+          { label: 'Cinema', amount: '\u20b9640' },
+          { label: 'Coffee', amount: '\u20b9180' }
+        ]
+
+        const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        const beat = still ? 0 : 900
+
+        let timers = []
+        let entries = []
+        let online = true
+        let cursor = 0
+        let nextId = 0
+
+        function row(entry, animate, markWaiting) {
+          const li = document.createElement('li')
+          if (animate) li.className = 'demo-list-item-new'
+          const left = document.createElement('span')
+          left.textContent = entry.label
+          const right = document.createElement('span')
+          right.className = 'dev-right'
+          if (markWaiting && !entry.here) {
+            const w = document.createElement('span')
+            w.className = 'wait'
+            w.textContent = 'waiting'
+            right.appendChild(w)
+          }
+          const amt = document.createElement('span')
+          amt.className = 'amt num'
+          amt.textContent = entry.amount
+          right.appendChild(amt)
+          li.appendChild(left)
+          li.appendChild(right)
+          return li
+        }
+
+        function render(animId, side) {
+          listA.textContent = ''
+          listB.textContent = ''
+          for (const entry of entries) {
+            listA.appendChild(row(entry, animId === entry.id && side === 'A', true))
+            if (entry.here) listB.appendChild(row(entry, animId === entry.id && side === 'B', false))
+          }
+          demo.classList.toggle('severed', !online)
+          devB.classList.toggle('off', !online)
+          stateB.textContent = online ? 'Online' : 'Offline'
+          linkLabel.innerHTML = online ? 'Direct<br>Noise-encrypted' : 'No route<br>Nothing lost'
+          btnLink.textContent = online
+            ? 'Take Ravi\u2019s phone offline'
+            : 'Bring Ravi\u2019s phone back'
+        }
+
+        function say(text) {
+          status.textContent = text
+        }
+
+        function waiting() {
+          return entries.filter((entry) => !entry.here)
+        }
+
+        function deliver() {
+          const pending = waiting()
+          if (!pending.length) return
+          for (const entry of pending) entry.here = true
+          render(pending[pending.length - 1].id, 'B')
+          say(
+            pending.length === 1
+              ? 'It reached Ravi\u2019s phone. The two phones spoke to each other directly \u2014 nothing passed through a server on the way.'
+              : pending.length +
+                  ' entries caught up at once. The two logs merge into one ledger, in an order both phones agree on.'
+          )
+        }
+
+        function reset() {
+          for (const t of timers) clearTimeout(t)
+          timers = []
+          entries = SEED.map((e) => ({ id: nextId++, label: e.label, amount: e.amount, here: true }))
+          online = true
+          cursor = 0
+          render(null, null)
+          say('Both phones hold the whole ledger. Neither one is the copy of record.')
+        }
+
+        btnRecord.addEventListener('click', () => {
+          const template = NEXT[cursor++ % NEXT.length]
+          const entry = { id: nextId++, label: template.label, amount: template.amount, here: false }
+          entries.push(entry)
+          render(entry.id, 'A')
+          if (online) {
+            say('Added on Maya\u2019s phone \u2014 written to her own storage first, before anything is sent anywhere.')
+            timers.push(setTimeout(deliver, beat))
+          } else {
+            say('Added on Maya\u2019s phone. Ravi\u2019s phone is out of reach, so it waits \u2014 the write already succeeded.')
+          }
+        })
+
+        btnLink.addEventListener('click', () => {
+          online = !online
+          render(null, null)
+          if (!online) {
+            say('Ravi\u2019s phone is offline. Maya keeps recording; nothing is blocked, and nothing is parked on anyone else\u2019s machine.')
+          } else if (waiting().length) {
+            say('Back in range.')
+            timers.push(setTimeout(deliver, beat))
+          } else {
+            say('Back in range. Both phones already agree.')
+          }
+        })
+
+        btnReset.addEventListener('click', reset)
+        reset()
+      })()
+
+      // Browser scratchpad. Entries live in localStorage on this device only —
+      // no network call anywhere in here — and leave as a CSV shaped like the
+      // app's own export (src/lib/csv.ts), so its importer reads it back.
+      ;(function () {
+        const pad = document.getElementById('pad')
+        if (!pad) return
+
+        const KEY = 'ourpot.scratch.v1'
+        const form = document.getElementById('pad-form')
+        const fAmount = document.getElementById('pad-amount')
+        const fCategory = document.getElementById('pad-category')
+        const fNote = document.getElementById('pad-note')
+        const list = document.getElementById('pad-list')
+        const empty = document.getElementById('pad-empty')
+        const count = document.getElementById('pad-count')
+        const sum = document.getElementById('pad-sum')
+        const currency = document.getElementById('pad-currency')
+        const say = document.getElementById('pad-say')
+        const btnCsv = document.getElementById('pad-csv')
+        const btnClear = document.getElementById('pad-clear')
+        const RESTING = say.textContent
+
+        let state = { currency: 'INR', entries: [] }
+        let armed = false
+
+        // Storage throws outright in some privacy modes, so every touch is guarded
+        // and a failure only costs persistence, never the widget.
+        function load() {
+          try {
+            const raw = localStorage.getItem(KEY)
+            if (!raw) return
+            const parsed = JSON.parse(raw)
+            if (typeof parsed.currency === 'string') state.currency = parsed.currency
+            if (Array.isArray(parsed.entries)) {
+              // `id` is what a row is deleted by, so a row that lost one would
+              // take every other id-less row with it on the next delete.
+              state.entries = parsed.entries.filter(
+                (e) =>
+                  e &&
+                  typeof e.id === 'string' &&
+                  e.id &&
+                  Number.isSafeInteger(e.minor) &&
+                  e.minor > 0 &&
+                  typeof e.date === 'string'
+              )
+            }
+          } catch (err) {
+            /* unreadable or unavailable — start empty */
+          }
+        }
+        function save() {
+          try {
+            localStorage.setItem(KEY, JSON.stringify(state))
+          } catch (err) {
+            /* quota or private mode — the session still works */
+          }
+        }
+
+        function today() {
+          const d = new Date()
+          const pad2 = (n) => String(n).padStart(2, '0')
+          return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate())
+        }
+
+        function money(minor) {
+          try {
+            return new Intl.NumberFormat(undefined, {
+              style: 'currency',
+              currency: state.currency
+            }).format(minor / 100)
+          } catch (err) {
+            return (minor / 100).toFixed(2) + ' ' + state.currency
+          }
+        }
+
+        // Minor units are the ledger's own integer form; parse to them directly
+        // rather than carrying a float around.
+        function toMinor(raw) {
+          const cleaned = String(raw).replace(/[\s,]/g, '')
+          if (!/^\d+(\.\d{1,2})?$/.test(cleaned)) return null
+          const minor = Math.round(parseFloat(cleaned) * 100)
+          if (!Number.isSafeInteger(minor) || minor <= 0 || minor > 100000000000) return null
+          return minor
+        }
+
+        function render() {
+          list.textContent = ''
+          for (const entry of state.entries) {
+            const li = document.createElement('li')
+            li.className = 'pad-row'
+
+            const when = document.createElement('span')
+            when.className = 'pad-when'
+            when.textContent = entry.date.slice(5)
+
+            const main = document.createElement('div')
+            main.className = 'pad-main'
+            const cat = document.createElement('div')
+            cat.className = 'pad-cat'
+            cat.textContent = entry.category || 'Uncategorised'
+            main.appendChild(cat)
+            if (entry.note) {
+              const note = document.createElement('div')
+              note.className = 'pad-note'
+              note.textContent = entry.note
+              main.appendChild(note)
+            }
+
+            const amt = document.createElement('span')
+            amt.className = 'pad-amt'
+            amt.textContent = money(entry.minor)
+
+            const drop = document.createElement('button')
+            drop.type = 'button'
+            drop.className = 'pad-drop'
+            drop.textContent = '\u00d7'
+            drop.setAttribute('aria-label', 'Remove ' + (entry.category || 'entry'))
+            drop.addEventListener('click', () => {
+              state.entries = state.entries.filter((e) => e.id !== entry.id)
+              save()
+              render()
+              say.textContent = 'Removed.'
+            })
+
+            li.append(when, main, amt, drop)
+            list.appendChild(li)
+          }
+
+          empty.hidden = state.entries.length > 0
+          count.textContent =
+            state.entries.length === 1 ? '1 entry' : state.entries.length + ' entries'
+          const total = state.entries.reduce((n, e) => n + e.minor, 0)
+          sum.textContent = state.entries.length ? money(total) : '\u2014'
+          currency.value = state.currency
+        }
+
+        function disarm() {
+          if (!armed) return
+          armed = false
+          btnClear.textContent = 'Clear'
+        }
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault()
+          disarm()
+          const minor = toMinor(fAmount.value)
+          if (minor === null) {
+            say.textContent = 'That amount did not read as a number. Try something like 1240 or 12.40.'
+            fAmount.focus()
+            return
+          }
+          state.entries.unshift({
+            id: String(Date.now()) + Math.random().toString(36).slice(2, 7),
+            date: today(),
+            minor: minor,
+            category: fCategory.value.trim().slice(0, 60),
+            note: fNote.value.trim().slice(0, 140)
+          })
+          save()
+          render()
+          fAmount.value = ''
+          fNote.value = ''
+          fAmount.focus()
+          say.textContent = 'Added, on this device. ' + RESTING
+        })
+
+        currency.addEventListener('change', () => {
+          state.currency = currency.value
+          save()
+          render()
+        })
+
+        // RFC 4180: quote only when the cell would otherwise break the row.
+        function cell(value) {
+          const text = value == null ? '' : String(value)
+          return /[",\n\r]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text
+        }
+
+        function buildCsv() {
+          // Only columns the importer can take cleanly. `payer` is omitted on
+          // purpose: a present-but-blank payer column is counted and warned
+          // about, while an absent one silently resolves to you.
+          const headers = ['date', 'amount', 'amount_minor', 'currency', 'category', 'note']
+          const rows = [headers.join(',')]
+          for (const e of state.entries) {
+            rows.push(
+              [
+                e.date,
+                (e.minor / 100).toFixed(2),
+                String(e.minor),
+                state.currency,
+                cell(e.category),
+                cell(e.note)
+              ].join(',')
+            )
+          }
+          // BOM so Excel-for-Windows reads UTF-8 rather than the ANSI code page,
+          // matching what the app writes.
+          return '\ufeff' + rows.join('\n') + '\n'
+        }
+
+        btnCsv.addEventListener('click', () => {
+          disarm()
+          if (!state.entries.length) {
+            say.textContent = 'Record something first.'
+            return
+          }
+          const blob = new Blob([buildCsv()], { type: 'text/csv;charset=utf-8' })
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = 'ourpot-' + today() + '.csv'
+          document.body.appendChild(a)
+          a.click()
+          a.remove()
+          URL.revokeObjectURL(url)
+          say.textContent =
+            'Downloaded. Open OurPot, then Settings \u2192 Your data \u2192 Import a file.'
+        })
+
+        btnClear.addEventListener('click', () => {
+          if (!state.entries.length) return
+          if (!armed) {
+            armed = true
+            btnClear.textContent = 'Clear \u2014 sure?'
+            say.textContent = 'This erases the scratchpad. Press again to confirm.'
+            return
+          }
+          disarm()
+          state.entries = []
+          save()
+          render()
+          say.textContent = RESTING
+        })
+
+        load()
+        render()
+      })()
+    </script>
+  </body>
+</html>

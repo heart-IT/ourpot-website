@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "inverse-primary": "#b7cf8d",
+          "inverse-surface": "#2e3227",
+          "surface-container-low": "#f3f5e5",
+          "outline-variant": "#c5c8b9",
+          "on-surface-variant": "#45483d",
+          "tertiary": "#60365b",
+          "inverse-on-surface": "#f2f1e9",
+          "on-secondary-fixed-variant": "#3a4d19",
+          "on-error": "#ffffff",
+          "surface-tint": "#51652f",
+          "on-secondary-fixed": "#131f00",
+          "on-primary-fixed": "#131f00",
+          "surface-bright": "#f9fbeb",
+          "on-surface": "#1a1d13",
+          "outline-ghost": "#c6c8b8",
+          "surface-container-high": "#e7eada",
+          "surface-container-lowest": "#ffffff",
+          "on-error-container": "#93000a",
+          "on-secondary-container": "#556933",
+          "secondary-fixed": "#d3eba7",
+          "primary": "#384b18",
+          "on-primary-container": "#c6de9b",
+          "primary-container": "#4f632d",
+          "background": "#f9fbeb",
+          "surface-container": "#efeee6",
+          "on-background": "#1a1d13",
+          "surface": "#faf9f6",
+          "surface-variant": "#e2e4d4",
+          "surface-container-highest": "#e4e3db",
+          "on-tertiary-fixed-variant": "#62385d",
+          "error-red": "#ba1a1a",
+          "on-primary-fixed-variant": "#3a4d19",
+          "on-secondary": "#ffffff",
+          "primary-fixed-dim": "#b7cf8d",
+          "warning-amber": "#b78220",
+          "on-tertiary": "#ffffff",
+          "error-container": "#ffdad6",
+          "secondary-container": "#d0e8a5",
+          "secondary": "#51652f",
+          "on-tertiary-fixed": "#310c2f",
+          "surface-dim": "#dbdad3",
+          "on-tertiary-container": "#fcc4f1",
+          "primary-fixed": "#d3eba7",
+          "tertiary-fixed-dim": "#edb5e2",
+          "on-primary": "#ffffff",
+          "tertiary-container": "#7a4d74",
+          "error": "#ba1a1a",
+          "tertiary-fixed": "#ffd7f5",
+          "secondary-fixed-dim": "#b7cf8e",
+          "outline": "#75786b"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "2xl": "1rem",
+          "3xl": "1.5rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "margin-desktop": "4rem",
+          "gutter-lg": "2rem",
+          "space-xl": "2rem",
+          "margin": "2rem",
+          "space-md": "1rem",
+          "gutter": "1.5rem",
+          "space-2xl": "3rem",
+          "margin-mobile": "1rem",
+          "gutter-sm": "1rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-3xl": "4rem"
+        },
+        fontFamily: {
+          "label-sm": ["Manrope", "sans-serif"],
+          "label-lg": ["Manrope", "sans-serif"],
+          "headline-sm": ["Newsreader", "serif"],
+          "body-sm": ["Manrope", "sans-serif"],
+          "display-lg-mobile": ["Newsreader", "serif"],
+          "body-lg": ["Manrope", "sans-serif"],
+          "headline-md": ["Newsreader", "serif"],
+          "display-lg": ["Newsreader", "serif"],
+          "headline-lg": ["Newsreader", "serif"],
+          "body-md": ["Manrope", "sans-serif"],
+          "label-md": ["Manrope", "sans-serif"],
+          "financial-data": ["Manrope", "monospace"]
+        },
+        fontSize: {
+          "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+          "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+          "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+          "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+          "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+          "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+          "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+          "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+          "financial-data": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+        },
+        animation: {
+          'pulse-slow': 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          'beacon': 'beacon 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
+          'float-subtle': 'floatSubtle 6s ease-in-out infinite',
+          'dash-flow': 'dashFlow 12s linear infinite'
+        },
+        keyframes: {
+          beacon: {
+            '0%': { transform: 'scale(0.95)', opacity: '0.8' },
+            '50%': { transform: 'scale(1.45)', opacity: '0' },
+            '100%': { transform: 'scale(0.95)', opacity: '0' }
+          },
+          floatSubtle: {
+            '0%, 100%': { transform: 'translateY(0px)' },
+            '50%': { transform: 'translateY(-4px)' }
+          },
+          dashFlow: {
+            to: { strokeDashoffset: '-40' }
+          }
+        }
+      }
+    }
+  }
+  </script>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    
+    /* Subtle paper texture & smooth rendering */
+    .calm-shadow {
+      box-shadow: 0 4px 20px -2px rgba(27, 28, 26, 0.04), 0 2px 6px -1px rgba(27, 28, 26, 0.02);
+    }
+    .calm-shadow-lg {
+      box-shadow: 0 16px 36px -4px rgba(27, 28, 26, 0.06), 0 4px 12px -2px rgba(27, 28, 26, 0.03);
+    }
+    .hairline-border {
+      border: 1px solid rgba(117, 120, 107, 0.18);
+    }
+    .hairline-border-subtle {
+      border: 1px solid rgba(117, 120, 107, 0.12);
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TOP NAVIGATION CHROME -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 transition-all duration-300">
+<div class="h-16 w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop flex items-center justify-between">
+<!-- Brand & Quiet Mode Status -->
+<div class="flex items-center gap-space-md">
+<a class="group font-headline-md text-headline-md tracking-tight text-on-surface hover:text-primary transition-colors flex items-baseline gap-1.5" data-path="landing" href="#">
+<span class="font-normal font-headline-sm">OurPot</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container group-hover:scale-125 transition-transform duration-300"></span>
+</a>
+<div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high/80 border border-outline-variant/30 text-on-surface-variant font-label-sm text-label-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="tracking-wide">Quiet local-first ledger</span>
+</div>
+</div>
+<!-- Navigation Links with pill highlight -->
+<nav class="hidden md:flex items-center gap-1 bg-surface-container-low/60 p-1 rounded-full border border-outline-variant/25">
+<a class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface transition-all duration-200" data-path="architecture" href="#architecture">Architecture</a>
+<a class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface transition-all duration-200" data-path="operational-depth" href="#operational-depth">Operational Depth</a>
+<a class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface transition-all duration-200" data-path="how-it-works" href="#how-it-works">How it Works</a>
+<a class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface transition-all duration-200" data-path="security" href="#security">Security</a>
+</nav>
+<!-- CTA Actions -->
+<div class="flex items-center gap-3">
+<a class="group relative inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary active:scale-[0.98] transition-all duration-200" data-path="household-onboarding" href="#workbench-preview">
+<span>Create Household</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform duration-200">arrow_forward</span>
+</a>
+<button aria-label="Household Account Settings" class="w-9 h-9 rounded-full bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="w-full pt-16 bg-surface">
+<div class="flex flex-col w-full">
+<!-- SECTION 1: HERO -->
+<section class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop pt-space-2xl pb-space-3xl flex flex-col items-center text-center relative">
+<!-- Live Node Status Indicator Pill -->
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/40 text-on-surface-variant font-label-sm text-label-sm mb-space-lg shadow-xs hover:border-outline transition-colors cursor-default">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-60"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-medium text-on-surface">Used by 1,200+ intentional households</span>
+<span class="text-outline-variant">•</span>
+<span class="text-on-surface-variant">95% recorded offline-first</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface max-w-3xl mb-space-md tracking-tight leading-[1.12]">
+          Shared expenses without the noise.
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-space-xl leading-relaxed">
+          Built for the device already on your kitchen table, pocket, or shared pantry. A local-first domestic ledger. Record pooled expenses, recurring splits, and serene settlements without surrendering your domestic memory to the cloud.
+        </p>
+<!-- CTAs with tactile transitions -->
+<div class="flex flex-wrap items-center justify-center gap-space-md mb-space-2xl">
+<a class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary-container hover:shadow-lg active:scale-[0.98] transition-all duration-200" data-path="household-onboarding" href="#workbench-preview">
+<span>Create Household</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+</a>
+<a class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-surface-container border border-outline-variant/40 text-on-surface font-label-lg text-label-lg hover:bg-surface-container-highest hover:border-outline active:scale-[0.98] transition-all duration-200" href="#workbench-preview">
+<span class="material-symbols-outlined text-[18px] text-secondary">table_rows</span>
+<span>Inspect Interactive Ledger</span>
+</a>
+</div>
+<!-- Store Badges with subtle tactile hover -->
+<div class="flex items-center gap-3 mb-space-3xl">
+<div class="group flex items-center gap-2.5 px-4 py-2 rounded-xl bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm shadow-sm cursor-pointer hover:bg-black/90 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]">phone_iphone</span>
+<div class="text-left leading-tight">
+<span class="block text-[10px] text-inverse-on-surface/70 uppercase tracking-widest font-normal">Download on</span>
+<span class="font-semibold text-xs">Apple App Store</span>
+</div>
+</div>
+<div class="group flex items-center gap-2.5 px-4 py-2 rounded-xl bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm shadow-sm cursor-pointer hover:bg-black/90 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]">shop</span>
+<div class="text-left leading-tight">
+<span class="block text-[10px] text-inverse-on-surface/70 uppercase tracking-widest font-normal">Get it on</span>
+<span class="font-semibold text-xs">Google Play</span>
+</div>
+</div>
+</div>
+<!-- Hero Showcase Visual Frame -->
+<div class="w-full relative rounded-2xl overflow-hidden calm-shadow-lg bg-surface-container-low max-w-5xl border border-outline-variant/30 group">
+<div class="aspect-[16/9] md:aspect-[21/9] w-full bg-cover bg-center relative transition-transform duration-700 ease-out group-hover:scale-[1.008]" data-alt="Two sleek smartphones showing a minimalist warm sage paper ledger app resting peacefully on a sunlit oak kitchen table beside a ceramic coffee cup and linen napkin in morning light. The color tones are warm beige, obsidian sage, and soft cream." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB77H8oF3W4awj9fwXH_dP79-9pJNK8jTV0BO-FRYKLmRCSs6K1sp6ueMeglKc2RQQ1lsk03-AvDldq8AMsrE61JQ2mUJf6ir22U3q0X72YZSPAnstm2A_21SQcPlDl5rBSBDXiBPG87KUoQbyt_sJTbHMIj87YXYWAo3e_WzFToZ1sksoJzDNTeFprYQL3emyLV9b_88Ic1rQVAKDoSygidN_E61kxS4U3dtqi9ltqL9DCvPfI51LY3g')">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low/95 via-transparent to-transparent opacity-85"></div>
+<!-- Live Status Overlay Pill Bar -->
+<div class="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-8 md:right-8 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-surface/95 backdrop-blur-md px-5 py-3 rounded-xl border border-outline-variant/30 calm-shadow">
+<div class="flex items-center gap-3">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Functional View: Comprehensive monthly ledger overview with natural morning aesthetics</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant font-label-sm text-label-sm font-mono">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface-container text-primary font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> SQLite Local
+                </span>
+<span class="text-outline-variant">•</span>
+<span class="text-on-surface-variant">Mesh Sync: Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Core Badges Strip with subtle hover elevation -->
+<div class="w-full max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-gutter-sm mt-space-xl">
+<div class="group flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container hover:text-on-surface hover:border-outline transition-all duration-200 calm-shadow">
+<span class="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">cloud_off</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase font-medium">Local-First</span>
+</div>
+<div class="group flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container hover:text-on-surface hover:border-outline transition-all duration-200 calm-shadow">
+<span class="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">sync</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase font-medium">Decadal Sync</span>
+</div>
+<div class="group flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container hover:text-on-surface hover:border-outline transition-all duration-200 calm-shadow">
+<span class="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">file_download</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase font-medium">Full Export</span>
+</div>
+<div class="group flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container hover:text-on-surface hover:border-outline transition-all duration-200 calm-shadow">
+<span class="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">visibility_off</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase font-medium">No Surveillance</span>
+</div>
+</div>
+</section>
+<!-- SECTION 2: PHILOSOPHY & LOCAL DATA CUSTODY -->
+<section class="w-full bg-surface-container-low py-space-3xl border-y border-outline-variant/30" id="architecture">
+<div class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-stretch">
+<!-- Left: Principle Narrative -->
+<div class="lg:col-span-7 flex flex-col justify-between space-y-space-xl bg-surface rounded-2xl p-space-xl calm-shadow border border-outline-variant/30">
+<div>
+<div class="inline-flex items-center gap-1.5 font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold mb-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Archival Integrity
+                </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">Your household ledger lives with you.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Your records stay strictly on your physical devices. OurPot uses peer-to-peer encrypted CRDT synchronization between household members. We operate zero central databases storing what you purchase, who paid for groceries, or your home settlement balances.
+                </p>
+</div>
+<!-- Interactive hover principle items -->
+<div class="space-y-3 pt-space-xs">
+<div class="group flex items-start gap-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 hover:bg-surface-container hover:border-outline/40 transition-all duration-200">
+<div class="w-11 h-11 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined text-[22px]">database</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">Local-first: Records stored on device</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">Every entry is written to your local SQLite database instantly, ensuring 100% responsiveness even deep underground or in offline cottages.</p>
+</div>
+</div>
+<div class="group flex items-start gap-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 hover:bg-surface-container hover:border-outline/40 transition-all duration-200">
+<div class="w-11 h-11 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined text-[22px]">hub</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">Peer synced: Devices sync directly</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">Encrypted delta updates are sent over local Wi-Fi or end-to-end encrypted peer relays directly to household members without parsing by intermediary servers.</p>
+</div>
+</div>
+<div class="group flex items-start gap-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 hover:bg-surface-container hover:border-outline/40 transition-all duration-200">
+<div class="w-11 h-11 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined text-[22px]">output</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">Exportable: Leave anytime</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">Your domestic ledger is yours forever. Export everything to structured CSV, Markdown, or JSON with a single click. Zero proprietary lock-in.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Private by Design Card with Interactive Security Badge -->
+<div class="lg:col-span-5 rounded-2xl bg-surface-container-high/70 border border-outline-variant/40 p-space-xl flex flex-col justify-between calm-shadow relative overflow-hidden">
+<div class="space-y-space-md relative z-10">
+<div class="w-12 h-12 rounded-2xl bg-primary-container text-on-primary flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[26px]">verified_user</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Private by Design</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Unlike traditional fintech apps that commercialize behavioral purchase histories, we never see who you're paying, how you share costs, or what you bought. Your financial privacy is mathematically enforced through private key pairs generated on your hardware.
+                </p>
+</div>
+<!-- Archival Spec Box with Animated Status -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest border border-outline-variant/30 calm-shadow mt-space-xl space-y-3 relative z-10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Cryptographic Handshake</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-mono font-semibold bg-primary-fixed/40 px-2 py-0.5 rounded">ChaCha20-Poly1305</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-gradient-to-r from-secondary to-primary rounded-full w-full"></div>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface-variant">
+<span>Zero server metadata retained</span>
+<span class="font-mono text-[11px] text-primary font-semibold">Zero-Knowledge</span>
+</div>
+</div>
+<!-- Soft ambient decorative glow -->
+<div class="absolute -bottom-16 -right-16 w-56 h-56 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: OPERATIONAL DEPTH SHOWCASE -->
+<section class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-3xl" id="operational-depth">
+<div class="text-center max-w-2xl mx-auto mb-space-2xl">
+<div class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold mb-space-xs">Observational Mechanics</div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-space-sm">Operational Depth</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            High-density household recording tools, built for quiet clarity rather than gamified distraction.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg">
+<!-- Card 1: Ledger Timeline -->
+<div class="group bg-surface-container-low rounded-2xl p-space-lg flex flex-col calm-shadow border border-outline-variant/30 hover:border-outline/60 hover:bg-surface-container transition-all duration-300">
+<div class="mb-space-md">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[20px]">view_timeline</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Ledger Timeline</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                A sequential, immutable log of all shared activity. Every expense is categorized and marked with the participant, retaining a perfect historical record.
+              </p>
+</div>
+<!-- Mockup Visual -->
+<div class="mt-auto bg-surface-container-lowest rounded-xl p-space-md calm-shadow space-y-2 border border-outline-variant/30 font-mono text-xs">
+<div class="flex items-center justify-between pb-2 border-b border-surface-container-high">
+<span class="font-bold text-on-surface flex items-center gap-1.5 font-sans">
+<span class="w-2 h-2 rounded-full bg-primary"></span> OurPot Ledger
+                </span>
+<span class="text-secondary font-sans font-semibold text-[11px] px-2 py-0.5 rounded-full bg-secondary-container/60 border border-outline-variant/30">Live CRDT</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex justify-between items-center group-hover:bg-surface-container-high/40 transition-colors">
+<div>
+<div class="font-sans font-medium text-on-surface">Groceries — Deli</div>
+<div class="text-[11px] text-on-surface-variant font-sans">Shared (50/50) • Recorded</div>
+</div>
+<span class="font-bold text-on-surface tabular-nums">$92.40</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex justify-between items-center group-hover:bg-surface-container-high/40 transition-colors">
+<div>
+<div class="font-sans font-medium text-on-surface">Electric Bill</div>
+<div class="text-[11px] text-on-surface-variant font-sans">Pooled • Automated</div>
+</div>
+<span class="font-bold text-on-surface tabular-nums">$160.00</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex justify-between items-center group-hover:bg-surface-container-high/40 transition-colors">
+<div>
+<div class="font-sans font-medium text-on-surface">Pantry Staples</div>
+<div class="text-[11px] text-on-surface-variant font-sans">Shared (50/50)</div>
+</div>
+<span class="font-bold text-on-surface tabular-nums">$31.50</span>
+</div>
+<div class="text-center pt-1 text-[11px] text-on-surface-variant font-sans tracking-wider uppercase font-semibold">Code Recording UI</div>
+</div>
+</div>
+<!-- Card 2: Settlement Center -->
+<div class="group bg-surface-container-low rounded-2xl p-space-lg flex flex-col calm-shadow border border-outline-variant/30 hover:border-outline/60 hover:bg-surface-container transition-all duration-300">
+<div class="mb-space-md">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[20px]">balance</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Settlement Center</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Real-time net balance calculations. When it's time to settle up at the end of the month, one quiet entry clears the ledger and records the settlement transaction.
+              </p>
+</div>
+<!-- Mockup Visual -->
+<div class="mt-auto bg-surface-container-lowest rounded-xl p-space-md calm-shadow text-center flex flex-col items-center justify-center min-h-[220px] border border-outline-variant/30">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-semibold">Net Balance to Equalize</span>
+<div class="font-display-lg text-display-lg text-primary tracking-tight font-semibold mb-2 tabular-nums group-hover:scale-105 transition-transform duration-300">$240.00</div>
+<span class="inline-flex items-center gap-1.5 font-label-sm text-label-sm px-3.5 py-1 rounded-full bg-secondary-container text-on-secondary-container mb-space-md font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Partner owes Household Pot
+              </span>
+<button class="w-full py-2.5 px-space-md rounded-xl bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary active:scale-[0.98] transition-all shadow-xs flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Record Settlement Entry</span>
+</button>
+<div class="text-center pt-2 text-[11px] text-on-surface-variant font-sans tracking-wider uppercase font-semibold">Monthly Balancing</div>
+</div>
+</div>
+<!-- Card 3: Recurring Automation -->
+<div class="group bg-surface-container-low rounded-2xl p-space-lg flex flex-col calm-shadow border border-outline-variant/30 hover:border-outline/60 hover:bg-surface-container transition-all duration-300">
+<div class="mb-space-md">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[20px]">autorenew</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Recurring Automation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Set fixed rules for rent, municipal utilities, and shared subscriptions. The ledger automatically generates entries on their due dates, taking mental burden out of fixed costs.
+              </p>
+</div>
+<!-- Mockup Visual -->
+<div class="mt-auto bg-surface-container-lowest rounded-xl p-space-md calm-shadow space-y-2 border border-outline-variant/30 font-mono text-xs">
+<div class="flex items-center justify-between pb-2 border-b border-surface-container-high">
+<span class="font-bold text-on-surface flex items-center gap-1.5 font-sans">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Active Schedules
+                </span>
+<span class="text-on-surface-variant font-sans text-[11px] px-2 py-0.5 rounded-full bg-surface-container">3 Rules Active</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex justify-between items-center group-hover:bg-surface-container-high/40 transition-colors">
+<div>
+<div class="font-sans font-medium text-on-surface">Apartment Lease</div>
+<div class="text-[11px] text-on-surface-variant font-sans">Due 1st of month • Split 50/50</div>
+</div>
+<span class="font-bold text-on-surface tabular-nums">$1,900.00</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex justify-between items-center group-hover:bg-surface-container-high/40 transition-colors">
+<div>
+<div class="font-sans font-medium text-on-surface">Fiber Broadband</div>
+<div class="text-[11px] text-on-surface-variant font-sans">Due 14th • Pooled pot</div>
+</div>
+<span class="font-bold text-on-surface tabular-nums">$60.00</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex justify-between items-center group-hover:bg-surface-container-high/40 transition-colors">
+<div>
+<div class="font-sans font-medium text-on-surface">Streaming Suite</div>
+<div class="text-[11px] text-on-surface-variant font-sans">Due 22nd • Split 50/50</div>
+</div>
+<span class="font-bold text-on-surface tabular-nums">$15.99</span>
+</div>
+<div class="text-center pt-1 text-[11px] text-on-surface-variant font-sans tracking-wider uppercase font-semibold">Automated Rules</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: LIVED-IN PRODUCT INTERACTIVE LEDGER WORKBENCH -->
+<section class="w-full bg-surface-container-low py-space-3xl border-y border-outline-variant/30" id="workbench-preview">
+<div class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-4">
+<div>
+<div class="inline-flex items-center gap-1.5 font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Interface Architecture
+              </div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Lived-in Product</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+              A physical journal rendered in digital clarity. Notice the absence of urgent red banners, gamified notifications, or pushy analytics.
+            </p>
+</div>
+<!-- Calm Desktop Ledger macOS-style Workbench Window -->
+<div class="w-full bg-surface rounded-2xl calm-shadow-lg border border-outline-variant/40 overflow-hidden transition-all duration-300">
+<!-- Workbench Window Chrome / Header Bar -->
+<div class="bg-surface-container-high px-5 py-3.5 border-b border-outline-variant/30 flex flex-wrap items-center justify-between gap-4">
+<!-- Window control dots & title -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-[#e27367]/80 inline-block border border-black/10"></span>
+<span class="w-3 h-3 rounded-full bg-[#e4ba48]/80 inline-block border border-black/10"></span>
+<span class="w-3 h-3 rounded-full bg-[#82be72]/80 inline-block border border-black/10"></span>
+</div>
+<div class="h-4 w-px bg-outline-variant/40"></div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Transaction Timeline</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-surface border border-outline-variant/30 text-on-surface-variant font-mono">
+                    Household Pot #04
+                  </span>
+</div>
+</div>
+<!-- Quick monthly metric -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-xl border border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Pooled Month:</span>
+<span class="font-financial-data text-financial-data font-bold text-primary tabular-nums">$3,450.25</span>
+</div>
+<button class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary-container text-on-primary font-label-sm text-label-sm hover:bg-primary transition-all shadow-xs">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>New Entry</span>
+</button>
+</div>
+</div>
+<!-- Filter & Toolbar Bar -->
+<div class="bg-surface-container/60 px-5 py-3 border-b border-outline-variant/20 flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2.5">
+<!-- Search with Command K badge -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span>
+<input class="bg-surface-container-lowest text-body-sm font-body-sm pl-9 pr-14 py-1.5 rounded-lg border border-outline-variant/40 text-on-surface placeholder:text-outline focus:outline-none focus:border-primary w-56 md:w-64 transition-all" placeholder="Search ledger entries..." type="text"/>
+<span class="absolute right-2 px-1.5 py-0.5 rounded bg-surface-container text-[10px] font-mono font-semibold text-on-surface-variant border border-outline-variant/40">⌘K</span>
+</div>
+<!-- Interactive Filter Segmented Pills -->
+<div class="inline-flex items-center p-1 rounded-lg bg-surface border border-outline-variant/30 text-xs font-label-sm">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-semibold transition-all">All (6)</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all">Shared (50/50)</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all">Pooled</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all">Settled</button>
+</div>
+<!-- Month Selector -->
+<button class="px-3 py-1.5 rounded-lg bg-surface text-label-sm font-label-sm text-on-surface border border-outline-variant/30 hover:border-outline flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">calendar_today</span>
+<span>October 2024</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</button>
+</div>
+<!-- Real-time sync badge with breathing indicator -->
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-mono text-xs">CRDT synced 14s ago</span>
+</div>
+</div>
+<!-- Ledger Entries List / Rows -->
+<div class="p-4 md:p-6 space-y-2">
+<!-- Row 1: Vet Bill -->
+<div class="group flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 hover:border-outline/40 hover:shadow-xs transition-all duration-200 cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-primary shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">pets</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+                      Vet Bill — Annual Vaccination &amp; Checkup
+                    </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-wrap items-center gap-2 mt-0.5">
+<span>Oct 28, 2024</span>
+<span class="text-outline-variant">•</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[11px] font-medium text-on-surface">Pets</span>
+<span class="text-outline-variant">•</span>
+<span class="text-xs">Split: Shared (50/50)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-financial-data text-financial-data font-bold text-on-surface tabular-nums text-base md:text-lg">$142.00</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono text-[11px]">Recorded by Sarah</div>
+</div>
+</div>
+<!-- Row 2: Electricity Bill -->
+<div class="group flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 hover:border-outline/40 hover:shadow-xs transition-all duration-200 cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-warning-amber shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+                      Municipal Electricity Bill
+                    </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-wrap items-center gap-2 mt-0.5">
+<span>Oct 27, 2024</span>
+<span class="text-outline-variant">•</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[11px] font-medium text-on-surface">Utilities</span>
+<span class="text-outline-variant">•</span>
+<span class="text-xs">Split: Shared (50/50)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-financial-data text-financial-data font-bold text-on-surface tabular-nums text-base md:text-lg">$210.20</div>
+<div class="font-label-sm text-label-sm text-primary font-mono text-[11px] flex items-center justify-end gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Automated Entry</span>
+</div>
+</div>
+</div>
+<!-- Row 3: Weekend Groceries -->
+<div class="group flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 hover:border-outline/40 hover:shadow-xs transition-all duration-200 cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-secondary shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">shopping_basket</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+                      Weekend Farmer Market Groceries
+                    </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-wrap items-center gap-2 mt-0.5">
+<span>Oct 25, 2024</span>
+<span class="text-outline-variant">•</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[11px] font-medium text-on-surface">Food &amp; Drink</span>
+<span class="text-outline-variant">•</span>
+<span class="text-xs">Split: Shared (50/50)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-financial-data text-financial-data font-bold text-on-surface tabular-nums text-base md:text-lg">$88.50</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono text-[11px]">Recorded by Leo</div>
+</div>
+</div>
+<!-- Row 4: WiFi Renewal -->
+<div class="group flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 hover:border-outline/40 hover:shadow-xs transition-all duration-200 cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-primary shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">wifi</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+                      High-Speed Fiber Network Renewal
+                    </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-wrap items-center gap-2 mt-0.5">
+<span>Oct 24, 2024</span>
+<span class="text-outline-variant">•</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[11px] font-medium text-on-surface">Utilities</span>
+<span class="text-outline-variant">•</span>
+<span class="text-xs">Split: Shared (33/33/33)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-financial-data text-financial-data font-bold text-on-surface tabular-nums text-base md:text-lg">$60.00</div>
+<div class="font-label-sm text-label-sm text-primary font-mono text-[11px] flex items-center justify-end gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Automated Entry</span>
+</div>
+</div>
+</div>
+<!-- Row 5: Gas Station -->
+<div class="group flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 hover:border-outline/40 hover:shadow-xs transition-all duration-200 cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-on-surface shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">local_gas_station</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+                      Shared Commute Refill
+                    </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-wrap items-center gap-2 mt-0.5">
+<span>Oct 22, 2024</span>
+<span class="text-outline-variant">•</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[11px] font-medium text-on-surface">Transport</span>
+<span class="text-outline-variant">•</span>
+<span class="text-xs">Split: Shared (50/50)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-financial-data text-financial-data font-bold text-on-surface tabular-nums text-base md:text-lg">$45.00</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono text-[11px]">Recorded by Leo</div>
+</div>
+</div>
+<!-- Row 6: Water Purifier Service -->
+<div class="group flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 hover:border-outline/40 hover:shadow-xs transition-all duration-200 cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-primary shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+                      Kitchen Filter Replacement
+                    </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-wrap items-center gap-2 mt-0.5">
+<span>Oct 20, 2024</span>
+<span class="text-outline-variant">•</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[11px] font-medium text-on-surface">Home Maintenance</span>
+<span class="text-outline-variant">•</span>
+<span class="text-xs">Pooled (House Pot)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-financial-data text-financial-data font-bold text-on-surface tabular-nums text-base md:text-lg">$25.00</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono text-[11px]">Recorded by Sarah</div>
+</div>
+</div>
+</div>
+<!-- Workbench Bottom Annotation & Status Bar -->
+<div class="bg-surface-container px-5 py-3 border-t border-outline-variant/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<span>Local-first sync: up to date. Sarah recorded groceries on an offline train ride. Household ledger reconciled automatically upon reconnection.</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline font-mono text-[11px] shrink-0">SQLite v3.45 • 0 Relayed Leaks</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: THE SYNC MECHANISM -->
+<section class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-3xl" id="how-it-works">
+<div class="text-center max-w-3xl mx-auto mb-space-2xl">
+<blockquote class="font-headline-md text-headline-md text-on-surface italic mb-space-md">
+            "No internet on the train? Record groceries anyway. Partner updates the ledger later? Devices sync automatically when nearby."
+          </blockquote>
+<div class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">The Sync Mechanism</div>
+<h2 class="font-display-lg text-display-lg text-on-surface mt-space-xs">Encrypted Peer-to-Peer Protocol</h2>
+</div>
+<!-- Modern Elevated P2P Sync Visual Diagram with animated packet flow & breathing lock -->
+<div class="w-full bg-surface-container-low rounded-3xl p-6 md:p-12 mb-space-2xl calm-shadow border border-outline-variant/30 relative overflow-hidden">
+<div class="max-w-3xl mx-auto flex flex-col items-center">
+<div class="w-full max-w-2xl py-space-md flex justify-center relative">
+<svg class="w-full h-auto text-primary" fill="none" viewbox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+<!-- Radiating beacon rings around center lock -->
+<circle class="animate-ping" cx="320" cy="120" r="64" stroke="#51652f" stroke-opacity="0.18" stroke-width="1.5" style="animation-duration: 4s;"></circle>
+<circle cx="320" cy="120" r="48" stroke="#4f632d" stroke-dasharray="3 3" stroke-opacity="0.25" stroke-width="1.5"></circle>
+<!-- Left Phone Device -->
+<g class="transition-transform duration-300 hover:-translate-y-1">
+<rect fill="#ffffff" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.04))" height="192" rx="20" stroke="#c5c8b9" stroke-width="2" width="120" x="50" y="24"></rect>
+<!-- Phone Screen content -->
+<rect fill="#e7eada" height="14" rx="4" width="88" x="66" y="44"></rect>
+<rect fill="#efeee6" height="10" rx="3" width="88" x="66" y="68"></rect>
+<rect fill="#efeee6" height="10" rx="3" width="60" x="66" y="84"></rect>
+<rect fill="#efeee6" height="10" rx="3" width="76" x="66" y="100"></rect>
+<!-- Offline write badge -->
+<rect fill="#f3f5e5" height="24" rx="6" stroke="#c5c8b9" stroke-width="1" width="88" x="66" y="128"></rect>
+<circle cx="78" cy="140" fill="#51652f" r="4"></circle>
+<rect fill="#51652f" fill-opacity="0.6" height="6" rx="2" width="50" x="88" y="137"></rect>
+<!-- Action pill -->
+<circle cx="110" cy="184" fill="#4f632d" r="14"></circle>
+<path d="M104 184h12M110 178v12" stroke="#ffffff" stroke-linecap="round" stroke-width="2.5"></path>
+</g>
+<!-- Right Phone Device -->
+<g class="transition-transform duration-300 hover:-translate-y-1">
+<rect fill="#ffffff" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.04))" height="192" rx="20" stroke="#c5c8b9" stroke-width="2" width="120" x="470" y="24"></rect>
+<!-- Phone Screen content -->
+<rect fill="#e7eada" height="14" rx="4" width="88" x="486" y="44"></rect>
+<rect fill="#efeee6" height="10" rx="3" width="88" x="486" y="68"></rect>
+<rect fill="#efeee6" height="10" rx="3" width="55" x="486" y="84"></rect>
+<rect fill="#efeee6" height="10" rx="3" width="70" x="486" y="100"></rect>
+<!-- Sync success card -->
+<rect fill="#d0e8a5" fill-opacity="0.5" height="24" rx="6" width="88" x="486" y="128"></rect>
+<circle cx="498" cy="140" fill="#384b18" r="4"></circle>
+<rect fill="#384b18" fill-opacity="0.8" height="6" rx="2" width="50" x="508" y="137"></rect>
+<!-- Status check pill -->
+<circle cx="530" cy="184" fill="#51652f" r="14"></circle>
+<path d="M524 184l4 4 8-8" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</g>
+<!-- Dynamic connecting wave lines with flowing dashes -->
+<path class="animate-dash-flow opacity-80" d="M175 105 C 235 60, 260 60, 285 90" stroke="#4f632d" stroke-dasharray="6 6" stroke-width="2"></path>
+<path class="animate-dash-flow opacity-80" d="M355 90 C 380 60, 410 60, 465 105" stroke="#4f632d" stroke-dasharray="6 6" stroke-width="2"></path>
+<path class="animate-dash-flow opacity-80" d="M465 135 C 410 180, 380 180, 355 150" stroke="#51652f" stroke-dasharray="6 6" stroke-width="2"></path>
+<path class="animate-dash-flow opacity-80" d="M285 150 C 260 180, 235 180, 175 135" stroke="#51652f" stroke-dasharray="6 6" stroke-width="2"></path>
+<!-- Moving Packet Particles -->
+<circle class="animate-ping" cx="230" cy="74" fill="#b78220" r="3.5" style="animation-duration: 2s;"></circle>
+<circle class="animate-ping" cx="410" cy="166" fill="#4f632d" r="3.5" style="animation-duration: 2.2s;"></circle>
+<!-- Center Encrypted Vault / Lock Hub -->
+<g class="cursor-pointer group">
+<circle cx="320" cy="120" fill="#384b18" filter="drop-shadow(0 6px 16px rgba(56,75,24,0.25))" r="34"></circle>
+<circle class="animate-spin" cx="320" cy="120" r="38" stroke="#51652f" stroke-dasharray="4 4" stroke-width="1.5" style="animation-duration: 18s;"></circle>
+<path d="M313 113v-4a7 7 0 0 1 14 0v4m-16 0h18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-18a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</g>
+</svg>
+</div>
+<div class="font-headline-sm text-headline-sm text-primary tracking-widest uppercase font-semibold text-center mb-space-xs flex items-center gap-2 justify-center">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              Encrypted P2P Sync
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-lg leading-relaxed">
+              Zero central server in the middle. Devices exchange encrypted Datapack deltas directly over Wi-Fi, Bluetooth mesh, or end-to-end relays.
+            </p>
+</div>
+</div>
+<!-- 3-Step Sync Protocol Flow with interactive hover elevations -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg">
+<div class="group bg-surface rounded-2xl p-space-lg calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface-container-low transition-all duration-300">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center font-bold text-on-surface mb-space-md group-hover:bg-primary group-hover:text-on-primary transition-colors">1</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Create Household</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Initializes a private encrypted vault on your local device. This becomes your device's sovereign source of truth.
+            </p>
+</div>
+<div class="group bg-surface rounded-2xl p-space-lg calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface-container-low transition-all duration-300">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center font-bold text-on-surface mb-space-md group-hover:bg-primary group-hover:text-on-primary transition-colors">2</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Invite Household</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Invite members using an encrypted QR code or secure peer link. Devices exchange signed cryptographic keys directly.
+            </p>
+</div>
+<div class="group bg-surface rounded-2xl p-space-lg calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface-container-low transition-all duration-300">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center font-bold text-on-surface mb-space-md group-hover:bg-primary group-hover:text-on-primary transition-colors">3</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Direct Peer Sync</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Devices sync records directly using end-to-end encryption. Built on the Datapack mesh protocol, requiring zero third-party oversight.
+            </p>
+</div>
+</div>
+</section>
+<!-- SECTION 6: WHY WE BUILT THIS & COMPARISON MATRIX -->
+<section class="w-full bg-surface-container-low py-space-3xl border-y border-outline-variant/30">
+<div class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<!-- Creator Quote Block with subtle breathing quote badge -->
+<div class="max-w-3xl mx-auto text-center mb-space-3xl">
+<div class="w-12 h-12 mx-auto rounded-2xl bg-primary text-on-primary flex items-center justify-center mb-space-md shadow-sm">
+<span class="material-symbols-outlined text-[24px]">format_quote</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-on-surface italic leading-relaxed mb-space-sm">
+              "We built OurPot after getting tired of searching chat histories, deciphering screenshot receipts, and opening pushy banking apps just to remember who covered groceries. No pushy alerts. No debt pressure. Just a shared household memory."
+            </blockquote>
+<div class="font-label-md text-label-md text-on-surface font-semibold flex items-center justify-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>The OurPot Architecture Collective</span>
+</div>
+</div>
+<!-- Comparison Matrix Header -->
+<div class="text-center max-w-xl mx-auto mb-space-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Built differently from traditional finance apps</h2>
+</div>
+<!-- Comparison Table Card with clean hover states -->
+<div class="w-full max-w-4xl mx-auto bg-surface rounded-2xl calm-shadow border border-outline-variant/30 overflow-hidden">
+<div class="grid grid-cols-12 bg-surface-container-high p-4 md:p-space-md font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold border-b border-outline-variant/30">
+<div class="col-span-4">Core Principle</div>
+<div class="col-span-4 text-on-surface-variant/80">Traditional Fintech Apps</div>
+<div class="col-span-4 text-primary font-bold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>OurPot Architecture</span>
+</div>
+</div>
+<div class="divide-y divide-surface-container-high/60 font-body-sm text-body-sm text-on-surface">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 p-4 md:p-space-md items-center hover:bg-surface-container-low transition-colors">
+<div class="col-span-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">storage</span>
+<span>Data Custody</span>
+</div>
+<div class="col-span-4 text-on-surface-variant">Centralized corporate cloud databases</div>
+<div class="col-span-4 text-primary font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Strictly on-device personal records</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 p-4 md:p-space-md items-center hover:bg-surface-container-low transition-colors">
+<div class="col-span-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">shield</span>
+<span>Privacy &amp; Security</span>
+</div>
+<div class="col-span-4 text-on-surface-variant">Monetized behavioral analytics &amp; ad tracking</div>
+<div class="col-span-4 text-primary font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Mathematically guaranteed zero-knowledge</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 p-4 md:p-space-md items-center hover:bg-surface-container-low transition-colors">
+<div class="col-span-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">self_improvement</span>
+<span>Daily Experience</span>
+</div>
+<div class="col-span-4 text-on-surface-variant">Intrusive notifications, social feeds, gamified debt</div>
+<div class="col-span-4 text-primary font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Quiet, calm shared household memory</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 p-4 md:p-space-md items-center hover:bg-surface-container-low transition-colors">
+<div class="col-span-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">file_open</span>
+<span>Longevity &amp; Export</span>
+</div>
+<div class="col-span-4 text-on-surface-variant">SaaS subscription lock-in, hard to export</div>
+<div class="col-span-4 text-primary font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Fully exportable plain CSV &amp; offline-ready</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 7: FREQUENTLY ASKED QUESTIONS -->
+<section class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-3xl" id="security">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-2xl gap-4">
+<div>
+<div class="inline-flex items-center gap-1.5 font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              Clear Inquiries
+            </div>
+<h2 class="font-display-lg text-display-lg text-on-surface">What happens if...</h2>
+</div>
+<a class="group font-label-md text-label-md text-primary hover:text-primary-container transition-colors flex items-center gap-1.5" data-path="security" href="#">
+<span>Read our Architecture &amp; Security Deep-dive</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter-lg">
+<!-- FAQ 1 -->
+<div class="group bg-surface-container-low rounded-2xl p-space-xl calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface transition-all duration-300">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">What if I lose my phone?</h3>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">phone_iphone</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Your ledger is distributed. Simply install the app on a new device and accept an invite from any other active household member to sync the full history back seamlessly. You can also import from your weekly local backups.
+            </p>
+</div>
+<!-- FAQ 2 -->
+<div class="group bg-surface-container-low rounded-2xl p-space-xl calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface transition-all duration-300">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Does it work without internet?</h3>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">wifi_off</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Yes. All recording, editing, and balancing functions work 100% offline. Devices will automatically synchronize in the background as soon as connectivity or local Wi-Fi mesh is restored.
+            </p>
+</div>
+<!-- FAQ 3 -->
+<div class="group bg-surface-container-low rounded-2xl p-space-xl calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface transition-all duration-300">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">How do I move my data?</h3>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">file_download</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              You hold the keys. Export your complete ledger history to standard CSV or JSON formats at any time directly from the application settings. No approval required, no fees, zero lock-in.
+            </p>
+</div>
+<!-- FAQ 4 -->
+<div class="group bg-surface-container-low rounded-2xl p-space-xl calm-shadow border border-outline-variant/30 hover:border-outline hover:bg-surface transition-all duration-300">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">How is my data secured?</h3>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">lock</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              End-to-end AES-256 and XChaCha20 encryption ensures that even if someone intercepted your sync data over airwaves, they couldn't read your household purchases. Only your paired devices hold the decryption keys.
+            </p>
+</div>
+</div>
+</section>
+<!-- SECTION 8: WHAT IS A HOUSEHOLD? -->
+<section class="w-full bg-surface-container-low py-space-3xl border-y border-outline-variant/30">
+<div class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop text-center">
+<div class="max-w-2xl mx-auto mb-space-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">What is a household?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              A household is any group that repeatedly shares real-life costs. OurPot is tailored for any circle that needs a shared, calm record of living.
+            </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-gutter-sm max-w-4xl mx-auto mb-space-lg">
+<div class="group p-5 rounded-2xl bg-surface calm-shadow border border-outline-variant/30 hover:border-outline hover:scale-[1.03] transition-all duration-200 flex flex-col items-center cursor-default">
+<span class="material-symbols-outlined text-secondary text-[30px] mb-2 group-hover:text-primary transition-colors">favorite</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Couples</span>
+</div>
+<div class="group p-5 rounded-2xl bg-surface calm-shadow border border-outline-variant/30 hover:border-outline hover:scale-[1.03] transition-all duration-200 flex flex-col items-center cursor-default">
+<span class="material-symbols-outlined text-secondary text-[30px] mb-2 group-hover:text-primary transition-colors">group</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Roommates</span>
+</div>
+<div class="group p-5 rounded-2xl bg-surface calm-shadow border border-outline-variant/30 hover:border-outline hover:scale-[1.03] transition-all duration-200 flex flex-col items-center cursor-default">
+<span class="material-symbols-outlined text-secondary text-[30px] mb-2 group-hover:text-primary transition-colors">family_restroom</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Families</span>
+</div>
+<div class="group p-5 rounded-2xl bg-surface calm-shadow border border-outline-variant/30 hover:border-outline hover:scale-[1.03] transition-all duration-200 flex flex-col items-center cursor-default">
+<span class="material-symbols-outlined text-secondary text-[30px] mb-2 group-hover:text-primary transition-colors">flight</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Travel Groups</span>
+</div>
+<div class="group p-5 rounded-2xl bg-surface calm-shadow border border-outline-variant/30 hover:border-outline hover:scale-[1.03] transition-all duration-200 flex flex-col items-center col-span-2 md:col-span-1 cursor-default">
+<span class="material-symbols-outlined text-secondary text-[30px] mb-2 group-hover:text-primary transition-colors">holiday_village</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Shared Homes</span>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest font-medium">
+            Built for: Couples, Roommates, Families, Travel Groups, Shared Homes.
+          </div>
+</div>
+</section>
+<!-- SECTION 9: FINAL CTA & CLOSING BANNER -->
+<section class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-3xl">
+<!-- Archival Pledge Banner -->
+<div class="p-space-lg rounded-2xl bg-surface-container text-center mb-space-2xl calm-shadow border border-outline-variant/30">
+<p class="font-body-md text-body-md text-on-surface flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+<span>Your records remain yours. Exportable anytime. No subscriptions required to access your financial history.</span>
+</p>
+</div>
+<!-- Main Final Action Container -->
+<div class="bg-surface-container-high rounded-3xl p-8 md:p-space-3xl text-center flex flex-col items-center max-w-4xl mx-auto calm-shadow border border-outline-variant/30 relative overflow-hidden">
+<h2 class="font-display-lg text-display-lg text-on-surface max-w-xl mb-space-sm leading-tight">
+            Start your quiet ledger today.
+          </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mb-space-xl">
+            Join 12,000+ households recording better, together. No tracking. No noise.
+          </p>
+<div class="flex flex-col sm:flex-row items-center gap-space-md mb-space-xl">
+<a class="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary active:scale-[0.98] transition-all shadow-sm" data-path="household-onboarding" href="#workbench-preview">
+<span>Create Household</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<a class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-surface text-on-surface-variant font-label-lg text-label-lg border border-outline-variant/40 hover:text-on-surface hover:bg-surface-container-lowest active:scale-[0.98] transition-all" data-path="how-it-works" href="#workbench-preview">
+<span class="material-symbols-outlined text-[18px]">upload_file</span>
+<span>Start ledger import via CSV</span>
+</a>
+</div>
+<!-- App Badges -->
+<div class="flex items-center gap-3 mb-space-lg">
+<div class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm shadow-sm cursor-pointer hover:bg-black/90 hover:scale-[1.02] active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined text-[20px]">phone_iphone</span>
+<div class="text-left leading-tight">
+<span class="block text-[10px] text-inverse-on-surface/70 uppercase tracking-widest font-normal">Download on</span>
+<span class="font-semibold text-xs">Apple App Store</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm shadow-sm cursor-pointer hover:bg-black/90 hover:scale-[1.02] active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined text-[20px]">shop</span>
+<div class="text-left leading-tight">
+<span class="block text-[10px] text-inverse-on-surface/70 uppercase tracking-widest font-normal">Get it on</span>
+<span class="font-semibold text-xs">Google Play</span>
+</div>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest text-xs flex items-center gap-2">
+<span>No credit card required</span>
+<span>•</span>
+<span>Peer-to-peer sync included</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="w-full bg-surface-container-low border-t border-outline-variant/30 mt-space-2xl">
+<div class="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-2xl">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter-lg pb-space-2xl">
+<div class="md:col-span-4 space-y-space-md">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">OurPot</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container inline-block"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm leading-relaxed">
+            An archival, contemplative shared ledger designed for domestic accounting and intentional households. Local-first, private by construction, devoid of urgent financial theater.
+          </p>
+<div class="flex items-center gap-2 pt-space-xs">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">System Status: Fully Peer Operational</span>
+</div>
+</div>
+<div class="md:col-span-2 md:col-start-6 space-y-space-sm">
+<div class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider font-semibold">Product</div>
+<ul class="space-y-2">
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="ledger-index" href="#workbench-preview">Household Pot</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="operational-depth" href="#operational-depth">Split &amp; Pool Rules</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="how-it-works" href="#how-it-works">Offline Settlement</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="architecture" href="#architecture">Receipt Archives</a></li>
+</ul>
+</div>
+<div class="md:col-span-2 space-y-space-sm">
+<div class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider font-semibold">Architecture</div>
+<ul class="space-y-2">
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="architecture" href="#architecture">Local SQLite Engine</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="security" href="#security">CRDT Synchronization</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="security" href="#security">Zero-Knowledge Storage</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="architecture" href="#architecture">Plaintext Export</a></li>
+</ul>
+</div>
+<div class="md:col-span-2 md:col-start-11 space-y-space-sm">
+<div class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider font-semibold">Trust &amp; Ledger</div>
+<ul class="space-y-2">
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="security" href="#security">Cryptographic Audit</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="security" href="#security">Peer Attestation</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="landing" href="#">Editorial Manifesto</a></li>
+<li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"><a data-path="security" href="#security">Security Whitepaper</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-space-lg border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-space-md text-on-surface-variant font-label-sm text-label-sm">
+<p>© 2024 OurPot Architecture Collective. Recorded for household tranquility.</p>
+<div class="flex items-center gap-space-lg">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Strictly Peer Encrypted</span>
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> No Third-Party Analytics</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
