@@ -1409,8 +1409,8 @@
               <div>
                 <h3>Pair a second phone<span class="where">Together</span></h3>
                 <p>
-                  One device makes an invite, the other scans it. Both people read the same
-                  twelve-character code aloud, and the first device admits the second by hand.
+                  One device makes an invite, the other scans it. Both phones show the same
+                  twelve-character code; read it aloud, and the person joining confirms it matches.
                 </p>
               </div>
             </li>
@@ -1616,7 +1616,7 @@
             </details>
             <details>
               <summary>How two phones find each other</summary>
-              <div class="answer"><p>The public Hyperswarm DHT that every <a href="https://holepunch.to/" target="_blank" rel="noopener">Holepunch</a> app shares. We run no bootstrap nodes and no relays of our own, so there is no OurPot machine to breach or shut down. The first connection on a home network takes eight to fifteen seconds &mdash; a lookup and a handshake; after that an entry crosses the open link as soon as it is written.</p></div>
+              <div class="answer"><p>The public Hyperswarm DHT that every <a href="https://holepunch.to/" target="_blank" rel="noopener">Holepunch</a> app shares. We run no bootstrap nodes and no relays, so there is no OurPot machine in your sync to breach or shut down. The first connection is a lookup and a handshake: on a home network it has taken from about ten seconds to a couple of minutes. After that, an entry crosses the open link as soon as it is written.</p></div>
             </details>
             <details>
               <summary>What the connection is</summary>
@@ -1624,7 +1624,7 @@
             </details>
             <details>
               <summary>Who can get into a household</summary>
-              <div class="answer"><p>Only someone an existing member lets in by hand. A valid invite is not enough on its own: both phones must show the same code, and a person has to confirm it matches.</p></div>
+              <div class="answer"><p>Only someone holding an invite an existing member made. The invite is not enough on its own: both phones show the same code, and the person joining has to confirm it matches before the household is shared with them.</p></div>
             </details>
             <details>
               <summary>Where your signing key lives</summary>
@@ -1639,8 +1639,12 @@
               <div class="answer"><p>In the app&rsquo;s own storage on each phone, under iOS Data Protection or Android&rsquo;s file-based encryption. The app refuses to start if it finds itself on storage the operating system does not protect.</p></div>
             </details>
             <details>
-              <summary>What is not encrypted yet</summary>
-              <div class="answer"><p>A second layer of our own, on top of the phone&rsquo;s, for the shared ledger. The app&rsquo;s accepted-risks document records it as a known gap rather than a solved problem.</p></div>
+              <summary>What our own encryption adds</summary>
+              <div class="answer"><p>The household&rsquo;s ledger and its receipts are also encrypted with a key that belongs to the household. That key is kept on the same phone, so this layer keeps a stray copy of the files unreadable; the phone&rsquo;s own encryption is what protects the phone. Receipt photos cached for display rely on the phone&rsquo;s encryption alone.</p></div>
+            </details>
+            <details>
+              <summary>How app updates arrive</summary>
+              <div class="answer"><p>Peer-to-peer as well, from an update channel we publish and keep online. The machines we run for it see your phone&rsquo;s IP address, as any app&rsquo;s update check would. Nothing of yours travels on that channel, and your phone joins it under a throwaway key rather than your identity. The <a href="privacy/">privacy policy</a> has the detail.</p></div>
             </details>
             <details>
               <summary>What we collect</summary>
@@ -1724,19 +1728,19 @@
             </details>
             <details>
               <summary>Settlement is one household-wide net, a month at a time.</summary>
-              <div class="answer"><p>Not per pot, and not across months &mdash; the figure covers the one month you are reading. When its splits span more than one currency there is no combined net, because raw minor units from two currencies do not add up; each currency gets its own settle-up instead.</p></div>
+              <div class="answer"><p>Not per pot, and not across months &mdash; the figure covers the one month you are reading. When its splits span more than one currency there is no combined net, because amounts in two currencies do not add up; each currency gets its own settle-up instead.</p></div>
             </details>
             <details>
-              <summary>Pairing needs both people present.</summary>
-              <div class="answer"><p>Both devices show a twelve-character code that has to be read aloud and matched. It is the only thing standing between an invite and an impostor.</p></div>
+              <summary>Pairing needs both people at hand.</summary>
+              <div class="answer"><p>Both phones show a twelve-character code that has to be read aloud and matched &mdash; in the same room or over a call. It is the only thing standing between an invite and an impostor.</p></div>
             </details>
             <details>
               <summary>One household to a phone.</summary>
               <div class="answer"><p>This release carries a single household. There is no way to keep, say, a flat ledger and a family ledger side by side on the same phone &mdash; that takes two phones, or waiting for a version that allows it.</p></div>
             </details>
             <details>
-              <summary>Switching households is one-way.</summary>
-              <div class="answer"><p>Leave your household, join a different one, and this phone can never go back to the first. Its writing identity is reset on the way through, and the only route back is to start again as a new member with a new identity.</p></div>
+              <summary>Switching households has a cost.</summary>
+              <div class="answer"><p>A member who leaves a shared household can be invited back later, as the same person. A notebook kept alone has no one to come back to: joining a different household starts this phone fresh and erases it, so export it first.</p></div>
             </details>
             <details>
               <summary>Some routers never let two phones meet.</summary>
@@ -1782,10 +1786,11 @@
               <div class="answer">
                 <p>
                   By hand &mdash; that is the other side of an app that does not watch you. After
-                  a crash: Settings &rsaquo; Advanced &rsaquo; Recent crashes &rsaquo; Share. For
-                  anything that went wrong quietly: Settings &rsaquo; Help &rsaquo; Share
-                  diagnostic bundle, which writes a JSON file of engine state with the amounts,
-                  the notes and the payer identities stripped out.
+                  a crash: Settings &rsaquo; App &rsaquo; Recent crashes &rsaquo; Share. For
+                  anything that went wrong quietly: Settings &rsaquo; App &rsaquo; Share diagnostic
+                  report, which writes a file of the app&rsquo;s technical state with your entries,
+                  notes and payer identities left out &mdash; the
+                  <a href="privacy/">privacy policy</a> lists what it holds.
                 </p>
                 <p>
                   Either one can go on an
@@ -1800,9 +1805,10 @@
               <summary>What happens to my notebook if OurPot stops being made?</summary>
               <div class="answer">
                 <p>
-                  Nothing switches off, because nothing of ours is running. The app on your
-                  phones keeps working the way it works today, and the CSV export is the door
-                  out &mdash; to a spreadsheet, or to whatever you pick next.
+                  Nothing switches off: the app needs no machine of ours to work. Updates would
+                  stop arriving, but the app on your phones keeps working the way it works today,
+                  and the CSV export is the door out &mdash; to a spreadsheet, or to whatever you
+                  pick next.
                 </p>
               </div>
             </details>
