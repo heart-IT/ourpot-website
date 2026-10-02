@@ -1,11 +1,4 @@
 <!doctype html>
-<!--
-  Published at https://ourpot.heartit.tech/privacy/. The policy's source of
-  truth is docs/PRIVACY_POLICY.md in the app repo (heart-IT/ourpot): change the
-  text there first, then here, and bump "Last updated" in both. The app links
-  to this URL (src/screens/About.tsx, PRIVACY_POLICY_URL) and so do the store
-  listings (docs/STORE_LISTING.md), so the address must not move.
--->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -545,10 +538,12 @@
         margin: 44px 0 12px;
       }
       .policy p,
-      .policy ul {
+      .policy ul,
+      .policy ol {
         margin-bottom: 16px;
       }
-      .policy ul {
+      .policy ul,
+      .policy ol {
         padding-left: 22px;
       }
       .policy li {
@@ -865,7 +860,7 @@
           <strong>directly</strong> over a public peer-to-peer network (built on the Hyperswarm /
           Hypercore protocols). Three things follow from that:
         </p>
-        <ul>
+        <ol>
           <li>
             <strong>Discovery and connection use public peer-to-peer infrastructure.</strong> To find
             your other household devices and punch through home routers/firewalls, your device
@@ -898,7 +893,7 @@
             joins it under a throwaway key generated per launch, unrelated to your household identity,
             so the connection is not linkable to you or to your household. We keep no logs of it.
           </li>
-        </ul>
+        </ol>
         <p>
           <strong
             >Household phones can also sync directly over Bluetooth when they are near each
@@ -951,7 +946,7 @@
           goes (e.g. emailing a maintainer).
         </p>
         <p>
-          The diagnostic bundle is <strong>redacted by design</strong>: it includes coarse technical
+          The diagnostic report is <strong>redacted by design</strong>: it includes coarse technical
           metadata (command types, short identifiers, timestamps, payload sizes), a few connectivity
           readings taken at the moment you export it (whether syncing is running, whether your network
           lets devices connect directly, how many devices are connected right now, and whether
@@ -1008,10 +1003,10 @@
             you do on your own device(s).
           </li>
           <li>
-            <strong>Editing/voiding an entry.</strong> OurPot is a notebook: corrections are recorded
-            as new entries that supersede or void the old one, so your household keeps an honest,
-            auditable history. The original is marked voided/superseded rather than silently erased,
-            and that history is visible to your household members.
+            <strong>Editing or deleting an entry.</strong> OurPot is a notebook: an edit or a
+            deletion is recorded as a new entry, so your household keeps an honest history. The
+            original is kept and shown as edited or deleted rather than silently erased, and that
+            history is visible to your household members.
           </li>
           <li>
             <strong>Deleting everything locally.</strong> Settings → <em>Reset this device</em> wipes
@@ -1048,6 +1043,12 @@
           <li>
             Your recovery phrase and identity keys are kept in the device's OS-backed secure storage
             (Keychain / Android Keystore).
+          </li>
+          <li>
+            Your household's ledger and receipts are also encrypted on the device with a key that
+            belongs to the household. That key is stored on the same device, so it keeps a stray copy
+            of the files unreadable but does not replace your device's own protection; receipt photos
+            cached for display rely on the device's encryption alone.
           </li>
           <li>
             We strongly recommend enabling a device passcode and biometric lock — on-device data is
