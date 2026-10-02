@@ -1,0 +1,1243 @@
+<!doctype html>
+<!--
+  Published at https://ourpot.heartit.tech/privacy/. The policy's source of
+  truth is docs/PRIVACY_POLICY.md in the app repo (heart-IT/ourpot): change the
+  text there first, then here, and bump "Last updated" in both. The app links
+  to this URL (src/screens/About.tsx, PRIVACY_POLICY_URL) and so do the store
+  listings (docs/STORE_LISTING.md), so the address must not move.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy policy — OurPot</title>
+    <meta
+      name="description"
+      content="OurPot privacy policy — a private, peer-to-peer household ledger with no server, no accounts, and no data collection."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#f9faf2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/webp" href="../brand-icon.webp" />
+    <link rel="apple-touch-icon" href="../brand-icon.png" />
+    <link rel="canonical" href="https://ourpot.heartit.tech/privacy/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Privacy policy — OurPot" />
+    <meta
+      property="og:description"
+      content="No accounts, no server, no data collection: how OurPot handles your household ledger."
+    />
+    <meta property="og:url" content="https://ourpot.heartit.tech/privacy/" />
+    <meta property="og:site_name" content="OurPot" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:image" content="https://ourpot.heartit.tech/og-card.png" />
+
+    <style>
+      /* ---------------------------------------------------------------
+         Tokens — lifted verbatim from the app's src/theme.ts so the site
+         and the product cannot drift. Light first, dark is the app's
+         hand-tuned palette, not an inversion.
+         --------------------------------------------------------------- */
+      :root,
+      :root[data-theme='light'] {
+        color-scheme: light;
+
+        --surface: #f9faf2;
+        --surface-lowest: #ffffff;
+        --surface-low: #f3f4ed;
+        --surface-container: #edefe7;
+        --surface-high: #e7e9e1;
+        --surface-highest: #e1e3dc;
+
+        --on-surface: #191c18;
+        --on-surface-variant: #45483c;
+
+        --primary: #4f632d;
+        --on-primary: #ffffff;
+        --primary-container: #677c43;
+        --on-primary-container: #faffe8;
+
+        --secondary: #626034;
+        --tertiary: #5f5c4f;
+
+        --outline: #646657;
+        --outline-variant: #c6c8b8;
+        --divider: #c6c8b880;
+
+        --warning: #b78220;
+        --on-warning-surface: #7a4d00;
+
+        --nav-bg: rgba(249, 250, 242, 0.82);
+        --shot-edge: #d8dace;
+        --shot-fill: var(--raised);
+        --shot-bezel: 0px;
+      }
+
+      /* Dark is applied two ways, so the palette is written twice on purpose:
+         once for the OS preference (unless the reader has forced light) and
+         once for an explicit choice. CSS has no way to share one declaration
+         block across a media query and a selector. */
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          color-scheme: dark;
+
+          --surface: #14110d;
+          --surface-lowest: #0a0907;
+          --surface-low: #1c1813;
+          --surface-container: #211d18;
+          --surface-high: #28241f;
+          --surface-highest: #2e2a24;
+
+          --on-surface: #efe9da;
+          --on-surface-variant: #c5beae;
+
+          --primary: #b7cf8d;
+          --on-primary: #263400;
+          --primary-container: #3a4d19;
+          --on-primary-container: #d3eba7;
+
+          --secondary: #ccc993;
+          --tertiary: #ccc6b7;
+
+          --outline: #908b7d;
+          --outline-variant: #45483c;
+          --divider: #45483c80;
+
+          --warning: #f5c779;
+          --on-warning-surface: #f5c779;
+
+          --nav-bg: rgba(20, 17, 13, 0.82);
+          --shot-edge: #2e2a24;
+          /* A black shadow on a near-black ground draws nothing, so dark does
+             the lifting with fill: a bezel of surface-highest around the
+             screenshot, measuring 1.32:1 against the page. `none` here makes the claim in
+             --elev-object literally true rather than aspirational. */
+          --shot-fill: var(--surface-highest);
+          --shot-bezel: 5px;
+          --elev-object: none;
+        }
+      }
+      :root[data-theme='dark'] {
+          color-scheme: dark;
+
+          --surface: #14110d;
+          --surface-lowest: #0a0907;
+          --surface-low: #1c1813;
+          --surface-container: #211d18;
+          --surface-high: #28241f;
+          --surface-highest: #2e2a24;
+
+          --on-surface: #efe9da;
+          --on-surface-variant: #c5beae;
+
+          --primary: #b7cf8d;
+          --on-primary: #263400;
+          --primary-container: #3a4d19;
+          --on-primary-container: #d3eba7;
+
+          --secondary: #ccc993;
+          --tertiary: #ccc6b7;
+
+          --outline: #908b7d;
+          --outline-variant: #45483c;
+          --divider: #45483c80;
+
+          --warning: #f5c779;
+          --on-warning-surface: #f5c779;
+
+          --nav-bg: rgba(20, 17, 13, 0.82);
+          --shot-edge: #2e2a24;
+          --shot-fill: var(--surface-highest);
+          --shot-bezel: 5px;
+          --elev-object: none;
+      }
+
+      /* Web-only, DERIVED from the palettes above rather than added to them, so the
+         app stays the source of truth. Each resolves per theme on its own because
+         it references a token that already switches — no third palette block. */
+      :root {
+        /* One visible step up from whatever ground the element sits on. The
+           surface/surface-low pair measures 1.053:1 — a step you cannot see. */
+        --raised: var(--surface-container);
+        --raised-inner: var(--surface-high);
+        /* Ledger ruling. Derived from the ink, not the outline, so it lands at the
+           same quietness in both themes: 1.22:1 light / 1.27:1 dark against their
+           own ground. Off the outline token it measured 1.32 / 1.45 — texture you
+           noticed before the headline. */
+        --rule-ink: color-mix(in srgb, var(--on-surface) 10%, transparent);
+        /* One elevation, for one job: a device is a physical object on the page.
+           Light lifts it with shadow, dark lifts it with fill — the ORDER holds
+           in both, which is the part that matters. */
+        --elev-object: 0 2px 4px -2px rgb(0 0 0 / 0.06), 0 18px 40px -26px rgb(0 0 0 / 0.45);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        /* Sticky nav is ~56px; without this every #anchor lands under it. */
+        scroll-padding-top: 76px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+        color: var(--on-surface);
+        background: var(--surface);
+        line-height: 1.65;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* The app pairs Newsreader *italic* with Manrope; only the italic cuts
+         ship in assets/fonts, so upright Newsreader would be a web-only face. */
+      .serif {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+      }
+      /* label-sm — the one uppercase machine-voice role: eyebrows, chips, field
+         captions, device names, the link label. It was written out seven times at
+         five sizes and three trackings, so the scale DESIGN.md declares was not the
+         scale that shipped. One rule now; per-element rules keep only what differs. */
+      .label,
+      .strip li,
+      .field > span,
+      .dev-name,
+      .index .where,
+      .link-label,
+      .dev-list .wait,
+      .theme-btn {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--on-surface-variant);
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration-color: color-mix(in srgb, var(--primary) 35%, transparent);
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        text-decoration-color: currentColor;
+      }
+      :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 8px;
+        background: var(--surface-lowest);
+        color: var(--on-surface);
+        padding: 10px 16px;
+        border-radius: 9999px;
+        z-index: 100;
+      }
+      .skip:focus {
+        left: 16px;
+      }
+
+      .vh {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      .wrap {
+        width: min(100% - 40px, 1080px);
+        margin-inline: auto;
+      }
+      .narrow {
+        max-width: 720px;
+      }
+
+      section {
+        padding: clamp(56px, 9vw, 104px) 0;
+      }
+      .ruled {
+        border-top: 1px solid var(--divider);
+      }
+      /* Tonal rhythm. Reading sections drop a step to surface-low; sections
+         carrying a raised panel (the demo, the scratchpad, the table) stay on
+         the base ground so those panels still read as laid on top of it. */
+      .tint {
+        background: var(--raised);
+      }
+
+      h1,
+      h2,
+      h3 {
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+
+      /* ---------- Nav ---------- */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--divider);
+      }
+      @supports (animation-timeline: scroll()) {
+        .nav {
+          animation-name: nav-rule;
+          animation-duration: auto;
+          animation-timing-function: linear;
+          animation-timeline: scroll();
+          animation-range: 0 90px;
+        }
+        @keyframes nav-rule {
+          from {
+            border-bottom-color: transparent;
+          }
+        }
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 12px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: inherit;
+        text-decoration: none;
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .brand img {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 26px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .nav-links a {
+        color: var(--on-surface-variant);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+      /* Set by script as you scroll past each section. */
+      .nav-links a[aria-current] {
+        color: var(--primary);
+      }
+
+      /* Mirrors the app's own three-way preference
+         (src/hooks/useThemePreference.ts): system, light, dark. The dot reads
+         half-filled for auto, hollow for light, solid for dark. */
+      .theme-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 12px;
+        background: transparent;
+        border: 1px solid var(--outline);
+        border-radius: 9999px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .theme-btn:hover {
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+      .theme-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: 1px solid currentColor;
+        background: linear-gradient(to right, currentColor 0 50%, transparent 50%);
+      }
+      :root[data-theme='light'] .theme-dot {
+        background: transparent;
+      }
+      :root[data-theme='dark'] .theme-dot {
+        background: currentColor;
+      }
+      @media (max-width: 720px) {
+        .js .nav-links .theme-btn {
+          margin-top: 16px;
+          align-self: flex-start;
+        }
+      }
+
+      .menu-btn {
+        display: none;
+        width: 38px;
+        height: 34px;
+        place-items: center;
+        border: 1px solid var(--outline);
+        border-radius: 9999px;
+        background: transparent;
+        cursor: pointer;
+      }
+      .menu-btn:hover {
+        border-color: var(--primary);
+      }
+      .menu-bars,
+      .menu-bars::before,
+      .menu-bars::after {
+        display: block;
+        width: 15px;
+        height: 1.5px;
+        background: var(--on-surface);
+        border-radius: 2px;
+      }
+      .menu-bars {
+        position: relative;
+      }
+      .menu-bars::before,
+      .menu-bars::after {
+        content: '';
+        position: absolute;
+        left: 0;
+      }
+      .menu-bars::before {
+        top: -5px;
+      }
+      .menu-bars::after {
+        top: 5px;
+      }
+
+      /* Without script the links stay in the bar and wrap — usable, just
+         plainer. The collapsed menu is the enhancement, not the baseline. */
+      @media (max-width: 720px) {
+        .js .menu-btn {
+          display: grid;
+        }
+        .js .nav-links {
+          display: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 4px 20px 16px;
+          background: var(--surface);
+          border-bottom: 1px solid var(--divider);
+          font-size: 16px;
+        }
+        .js .nav-links.open {
+          display: flex;
+        }
+        .js .nav-links a {
+          padding: 13px 0;
+          border-top: 1px solid var(--divider);
+        }
+      }
+
+      /* ---------- Buttons ---------- */
+      /* The button token — Space Grotesk 14/600/20. The demo and scratchpad
+         controls are buttons too; they were sitting a step below it at 13px. */
+      .btn,
+      .demo-btn {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 22px;
+        border-radius: 9999px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--on-primary);
+      }
+      .btn-primary:hover {
+        background: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+      .btn-ghost {
+        border-color: var(--outline);
+        color: var(--on-surface);
+      }
+      .btn-ghost:hover {
+        border-color: var(--primary);
+      }
+
+      /* ---------- Policy ----------
+         A long legal read: one reading measure on the ledger's ground. The page
+         makes no third-party request, so the home page's Google Fonts are left
+         out and each face falls back to its stack (Georgia, system-ui). */
+      .policy {
+        padding: clamp(40px, 7vw, 72px) 0 clamp(56px, 9vw, 104px);
+        font-size: 17px;
+      }
+      .policy header {
+        margin-bottom: 36px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--divider);
+      }
+      .policy h1,
+      .policy h2 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+      }
+      .policy h1 {
+        font-size: clamp(32px, 5vw, 44px);
+        line-height: 1.15;
+        margin-bottom: 20px;
+      }
+      .policy h2 {
+        font-size: clamp(22px, 3vw, 28px);
+        line-height: 1.25;
+        margin: 44px 0 12px;
+      }
+      .policy p,
+      .policy ul {
+        margin-bottom: 16px;
+      }
+      .policy ul {
+        padding-left: 22px;
+      }
+      .policy li {
+        margin-bottom: 8px;
+      }
+      .policy .meta {
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--on-surface-variant);
+      }
+      .policy .meta strong {
+        color: var(--on-surface);
+      }
+      .policy .lede {
+        font-size: 19px;
+      }
+      .policy code {
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+        font-size: 0.88em;
+        background: var(--raised);
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+      .policy table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+      .policy th,
+      .policy td {
+        text-align: left;
+        vertical-align: top;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--divider);
+      }
+      .policy th {
+        font-weight: 600;
+        border-bottom: 2px solid var(--outline-variant);
+      }
+      .policy .page-note {
+        margin-top: 56px;
+        padding-top: 20px;
+        border-top: 1px solid var(--divider);
+        font-size: 14px;
+        color: var(--on-surface-variant);
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        padding: 56px 0 40px;
+        font-size: 14px;
+      }
+      .foot-grid {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        padding-bottom: 32px;
+      }
+      .foot-grid p {
+        color: var(--on-surface-variant);
+        max-width: 32ch;
+        margin-top: 10px;
+      }
+      .foot-grid ul {
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .foot-grid a {
+        color: var(--on-surface-variant);
+        text-decoration: none;
+      }
+      .foot-grid a:hover {
+        color: var(--primary);
+      }
+      .foot-bottom {
+        border-top: 1px solid var(--divider);
+        padding-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--on-surface-variant);
+      }
+      .foot-bottom a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--on-surface-variant);
+        text-decoration: none;
+      }
+      .foot-bottom img {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+
+    <script>
+      // Before first paint: a stored choice has to be on the element already,
+      // or the page paints the OS scheme and then snaps to the chosen one.
+      ;(function () {
+        var root = document.documentElement
+        root.classList.add('js')
+        try {
+          var saved = localStorage.getItem('ourpot.theme')
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved)
+        } catch (err) {
+          /* storage unavailable — fall through to the OS scheme */
+        }
+      })()
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="wrap nav-inner">
+        <a class="brand" href="../">
+          <img src="../brand-icon.webp" alt="" width="128" height="128" />
+          <span>ourpot</span>
+        </a>
+        <div class="nav-right">
+          <div class="nav-links" id="nav-links">
+            <a href="../#what">What it is</a>
+            <a href="../#sync">Sync</a>
+            <a href="../#inside">Inside</a>
+            <a href="../#limits">Limits</a>
+            <a href="../#faq">FAQ</a>
+            <button class="theme-btn" type="button" id="theme-btn">
+              <span class="theme-dot" aria-hidden="true"></span>
+              <span id="theme-label">Auto</span>
+            </button>
+          </div>
+          <a class="btn btn-primary" href="../#get">Get OurPot</a>
+          <button
+            class="menu-btn"
+            type="button"
+            id="menu-btn"
+            aria-controls="nav-links"
+            aria-expanded="false"
+            aria-label="Open menu"
+          >
+            <span class="menu-bars"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main" tabindex="-1" class="policy">
+      <div class="wrap narrow">
+        <header>
+          <h1>OurPot — Privacy Policy</h1>
+          <div class="meta">
+            <div>
+              <strong>Last updated:</strong>
+              2 October 2026
+            </div>
+            <div>
+              <strong>Applies to:</strong> the OurPot mobile app for iOS and Android
+              (<code>com.ourpot.app</code>).
+            </div>
+            <div><strong>Provided by:</strong> heartIT ("we", "us").</div>
+            <div>
+              <strong>Contact:</strong>
+              <a href="mailto:rahulgarg_su@proton.me">rahulgarg_su@proton.me</a>
+            </div>
+          </div>
+        </header>
+
+        <p class="lede">
+          OurPot is a private household expense notebook. It runs entirely on your phones.
+        </p>
+
+        <ul>
+          <li>
+            <strong>No accounts. No server. No cloud.</strong> You never sign up, and there is no
+            OurPot server that your data passes through or lives on.
+          </li>
+          <li>
+            <strong>We don't collect anything.</strong> No analytics, no telemetry, no advertising, no
+            tracking, no third-party SDKs that phone home. We have no database of users because we
+            have no users in the account sense.
+          </li>
+          <li>
+            <strong>Your ledger lives on your devices.</strong> Expenses, categories, receipts, and
+            your household identity are stored locally and synced <strong>directly</strong> between
+            the phones in your household.
+          </li>
+          <li>
+            <strong>Sync is peer-to-peer and encrypted in transit.</strong> Devices find each other
+            over a public peer-to-peer network and connect directly; the data they exchange is
+            encrypted so only your household's devices can read it.
+          </li>
+        </ul>
+
+        <p>
+          The rest of this document explains the details, including the one place reality is more
+          nuanced than "nothing leaves your phone": connecting two phones over the internet
+          necessarily exposes their network addresses to the infrastructure that helps them find each
+          other.
+        </p>
+
+        <h2>1. Who the "data controller" is</h2>
+        <p>
+          OurPot has no central operator that holds your data, so there is no controller in the usual
+          sense for the contents of your ledger —
+          <strong>you and the members of your household are.</strong> heartIT publishes the app and is
+          responsible for this policy and for the app's code, but does not receive, store, or have
+          access to your ledger, identity keys, or receipts.
+        </p>
+
+        <h2>2. What information OurPot handles, and where it lives</h2>
+        <p>
+          Everything below is created by you and stored <strong>on your own device(s)</strong>. None
+          of it is sent to us.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Examples</th>
+                <th>Where it's stored</th>
+                <th>Leaves your device?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ledger entries</strong></td>
+                <td>amounts, currency, category, note, who paid, pooled/split mode, dates</td>
+                <td>Locally, in the app's private storage</td>
+                <td>
+                  Only to other devices <strong>in your own household</strong>, encrypted in transit
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Receipts</strong></td>
+                <td>photos you choose to attach to an entry</td>
+                <td>Locally</td>
+                <td>
+                  Same as ledger entries — household devices only, never uploaded to us or any third
+                  party
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Household identity</strong></td>
+                <td>your cryptographic keys and 24-word recovery phrase</td>
+                <td>
+                  The device's secure storage (iOS Keychain / Android Keystore-backed secure store)
+                </td>
+                <td>
+                  The recovery phrase never leaves the device automatically. Public keys are shared
+                  with your household devices as part of normal sync
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Membership</strong></td>
+                <td>which devices are members of your household</td>
+                <td>Locally + synced to household devices</td>
+                <td>Household devices only</td>
+              </tr>
+              <tr>
+                <td><strong>App preferences</strong></td>
+                <td>local UI/app settings</td>
+                <td>Locally</td>
+                <td>No</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          OurPot does <strong>not</strong> ask for or collect your name, email, phone number,
+          contacts, location, advertising identifiers, or any account credentials — because it has no
+          accounts.
+        </p>
+
+        <h2>3. What we collect about you: nothing</h2>
+        <p>We want to be precise because most apps cannot say this:</p>
+        <ul>
+          <li>
+            <strong>No analytics or usage statistics.</strong> The app contains no analytics SDK and
+            sends no usage events anywhere.
+          </li>
+          <li>
+            <strong>No crash reporting service.</strong> Crash and diagnostic information stays on
+            your device unless <strong>you</strong> explicitly choose to share it (see §6).
+          </li>
+          <li><strong>No advertising and no ad networks.</strong></li>
+          <li><strong>No third-party trackers or marketing SDKs.</strong></li>
+          <li>
+            <strong>No sale or sharing of personal information</strong> — there is nothing to sell or
+            share, and we never will.
+          </li>
+        </ul>
+
+        <h2>4. How sync works, and what is exposed on the network</h2>
+        <p>This is the one area where "nothing leaves your phone" needs an honest footnote.</p>
+        <p>
+          To keep your household ledger in sync without a server, your devices connect to each other
+          <strong>directly</strong> over a public peer-to-peer network (built on the Hyperswarm /
+          Hypercore protocols). Three things follow from that:
+        </p>
+        <ul>
+          <li>
+            <strong>Discovery and connection use public peer-to-peer infrastructure.</strong> To find
+            your other household devices and punch through home routers/firewalls, your device
+            contacts public distributed-hash-table (DHT) nodes and may route the initial handshake
+            through public relay nodes. These are decentralized, community/operator-run nodes — not an
+            OurPot server — but they are third parties on the network path.
+          </li>
+          <li>
+            <strong>Your IP address is visible to peers and to that infrastructure.</strong> As with
+            <em>any</em> networked app (including ordinary client–server apps), establishing a
+            connection reveals your device's network address to the peers it connects to and to the
+            discovery/relay infrastructure. An observer who already knows your household's public sync
+            identifier could learn that a device is online and its approximate network location.
+            <strong
+              >The contents of your ledger are encrypted in transit and are not readable by this
+              infrastructure or by uninvited peers</strong
+            >
+            — only by devices you have added to your household.
+          </li>
+          <li>
+            <strong>App updates travel over a separate peer-to-peer channel that we do seed.</strong>
+            OurPot can update its app code without a store release, and it does that peer-to-peer too.
+            A released build joins one worldwide discovery topic — the update drive published by us,
+            the same topic for every OurPot install — and fetches the app bundle from whichever peers
+            hold it, including the always-online machines <strong>we</strong> run so the drive stays
+            available. Connecting to one of those machines reveals your device's IP address to us, in
+            the same way that any app's update check reveals it to that app's publisher. Two limits on
+            what that can tell us: <strong>no ledger data travels on this channel</strong> — it
+            carries the app bundle, in one direction, and nothing of yours goes out — and the app
+            joins it under a throwaway key generated per launch, unrelated to your household identity,
+            so the connection is not linkable to you or to your household. We keep no logs of it.
+          </li>
+        </ul>
+        <p>
+          <strong
+            >Household phones can also sync directly over Bluetooth when they are near each
+            other</strong
+          >
+          — only if you turn on <em>Sync nearby over Bluetooth</em> in Settings, which is off by
+          default. That path uses no network at all: no DHT, no relay, no IP address, and it works
+          with the internet switched off. The connection is encrypted the same way as every other
+          sync, and nothing is collected. See §7 for the permission.
+        </p>
+        <p>
+          We do not operate the DHT or relay infrastructure your household sync depends on, do not log
+          it, and receive nothing from it. The update drive is the one piece of network infrastructure
+          we do run, and it is disclosed above rather than folded into that denial. If you are in an
+          environment where exposing your IP address is a concern, you can use OurPot in
+          <strong>solo mode</strong> (a single device, no sync) — note that solo mode stops household
+          sync but not the update channel, so only an offline device or a VPN covers that.
+        </p>
+
+        <h2>5. Sharing within your household</h2>
+        <p>
+          When you invite another device into your household, you are choosing to share your ledger
+          with the person who controls that device. From that point:
+        </p>
+        <ul>
+          <li>New entries, edits, receipts, and membership changes sync to all household devices.</li>
+          <li>
+            Pairing uses a one-time invite plus an out-of-band
+            <strong>verification fingerprint</strong> you read aloud to confirm you're connecting to
+            the right device. Read it aloud — it's the protection against connecting to the wrong
+            party.
+          </li>
+          <li>
+            Removing/revoking a device stops it from making <em>future</em> changes, but it does not
+            reach into and erase data already stored on a device someone else physically controls (see
+            §8).
+          </li>
+        </ul>
+        <p>
+          OurPot is built for cooperative households (couples, families, roommates). It is not
+          designed to protect members of the same household from each other.
+        </p>
+
+        <h2>6. Diagnostics you choose to share</h2>
+        <p>
+          For troubleshooting, Settings offers <strong>"Share diagnostic report"</strong> and
+          <strong>"Recent crashes"</strong>. These are
+          <strong>never sent automatically and never sent to us.</strong> When you tap them, the app
+          hands a file to your phone's normal share sheet, and <strong>you</strong> decide where it
+          goes (e.g. emailing a maintainer).
+        </p>
+        <p>
+          The diagnostic bundle is <strong>redacted by design</strong>: it includes coarse technical
+          metadata (command types, short identifiers, timestamps, payload sizes), a few connectivity
+          readings taken at the moment you export it (whether syncing is running, whether your network
+          lets devices connect directly, how many devices are connected right now, and whether
+          Bluetooth is on and in what state), recent on-device crash logs, and a tail of the app's own
+          technical log (the warn/error lines it writes for itself, redacted as they are written) —
+          but <strong>not</strong> your individual entries, notes, payer identities, or receipts (a
+          consistency-check diagnostic can carry a monthly total, and the in-app consent sheet says
+          so). The connected-device figure is a count only — the devices' own identities are
+          deliberately left out. You control whether to share it and with whom.
+        </p>
+
+        <h2>7. Device permissions and why OurPot asks</h2>
+        <p>OurPot requests the minimum it needs, and only at the moment a feature needs it:</p>
+        <ul>
+          <li>
+            <strong>Camera</strong> — to scan an invite QR code from another household device, and to
+            photograph a receipt when you attach one. OurPot does not record audio or video.
+          </li>
+          <li>
+            <strong>Photo library</strong> — only when you attach an existing photo as a receipt.
+            OurPot reads the specific photo you pick; it does not scan your library.
+          </li>
+          <li>
+            <strong>Local network (iOS)</strong> — to discover and connect to your other household
+            devices on the same Wi-Fi for faster, server-free sync.
+          </li>
+          <li>
+            <strong>Bluetooth</strong> — only if you turn on <em>Sync nearby over Bluetooth</em> in
+            Settings. It lets household phones in the same room sync directly, even without internet.
+            The connection is encrypted the same way as every other sync; nothing is collected, and
+            OurPot never uses Bluetooth to work out where you are (on Android the scan permission is
+            declared as never-for-location). Off by default.
+          </li>
+          <li>
+            <strong>Face ID / biometrics</strong> — used locally to confirm it's you before revealing
+            your recovery phrase. Biometric data never leaves the device and is handled entirely by
+            the operating system.
+          </li>
+          <li><strong>Vibration</strong> — for haptic feedback.</li>
+        </ul>
+        <p>
+          On Android, OurPot explicitly <strong>blocks</strong> audio-recording and overlay
+          permissions. Legacy external-storage permissions remain declared for Android 12 and earlier
+          by third-party dependencies (they are inert on Android 13+), but OurPot itself does not read
+          or write shared external storage. OurPot also does not allow OS-level cloud backup of its
+          data (<code>allowBackup=false</code>) so your ledger isn't copied off-device by the
+          platform.
+        </p>
+
+        <h2>8. Keeping, deleting, and recovering your data</h2>
+        <ul>
+          <li>
+            <strong>You hold the data.</strong> Because there is no server, deleting data is something
+            you do on your own device(s).
+          </li>
+          <li>
+            <strong>Editing/voiding an entry.</strong> OurPot is a notebook: corrections are recorded
+            as new entries that supersede or void the old one, so your household keeps an honest,
+            auditable history. The original is marked voided/superseded rather than silently erased,
+            and that history is visible to your household members.
+          </li>
+          <li>
+            <strong>Deleting everything locally.</strong> Settings → <em>Reset this device</em> wipes
+            the ledger, identity keys, and receipts from <strong>that device</strong>. This is
+            irreversible. Your 24-word phrase brings your identity back afterwards, but not the
+            entries — see <em>Recovery phrase</em> below for where those can and cannot come from.
+          </li>
+          <li>
+            <strong>Other people's copies.</strong> Deleting your copy does not delete data already
+            synced to another household member's device — they hold their own copy. To stop sharing,
+            remove the member and/or stop syncing.
+          </li>
+          <li>
+            <strong>Recovery phrase.</strong> Your 24-word phrase restores
+            <strong>who you are</strong> on a new device — your identity keys — not
+            <strong>what you wrote down</strong>. Because there is no server, the entries themselves
+            come back from one of two places: a household device that still holds them, or an
+            encrypted backup file you exported beforehand (Settings →
+            <em>Export encrypted backup</em>, offered while your household is still a single device —
+            once you pair, the other device <em>is</em> the second copy). If every device is lost and
+            no backup file survives, the entries are gone: we hold no copy to restore, and the phrase
+            cannot recreate one. We cannot recover the phrase for you either — we never have it. Keep
+            it safe.
+          </li>
+        </ul>
+
+        <h2>9. Security</h2>
+        <ul>
+          <li>Connections between household devices are <strong>encrypted in transit</strong>.</li>
+          <li>
+            Only devices you have admitted to your household can read your ledger; uninvited peers and
+            the discovery/relay infrastructure cannot.
+          </li>
+          <li>
+            Your recovery phrase and identity keys are kept in the device's OS-backed secure storage
+            (Keychain / Android Keystore).
+          </li>
+          <li>
+            We strongly recommend enabling a device passcode and biometric lock — on-device data is
+            ultimately protected by your device's own security.
+          </li>
+        </ul>
+        <p>
+          No system is perfectly secure, but OurPot's design deliberately minimizes what could be
+          exposed: there is no central honeypot to breach, because there is no central store.
+        </p>
+
+        <h2>10. Children's privacy</h2>
+        <p>
+          OurPot is intended for general audiences managing a household budget and is not directed to
+          children. We do not knowingly collect information from children — in fact, we do not
+          knowingly collect information from anyone (§3).
+        </p>
+
+        <h2>11. International use and transfers</h2>
+        <p>
+          OurPot has no servers, so we perform no cross-border transfers of your data to or through
+          us. Peer-to-peer sync sends your encrypted data directly between your own devices, which may
+          be in different countries; the routing/discovery infrastructure (§4) is globally
+          distributed. The data exchanged remains encrypted in transit and readable only by your
+          household devices.
+        </p>
+
+        <h2>12. Your rights</h2>
+        <p>
+          Depending on where you live (e.g. GDPR/UK GDPR, CCPA/CPRA), you may have rights to access,
+          correct, delete, or port your personal data. Because
+          <strong>all of your data is in your own hands on your own devices</strong>, you can exercise
+          these directly in the app: view it on the ledger, correct it with an edit, and erase it with
+          <em>Reset this device</em>. We hold no copy to produce, rectify, or delete on your behalf.
+          If you believe we nonetheless hold data about you, contact us at
+          <a href="mailto:rahulgarg_su@proton.me">rahulgarg_su@proton.me</a>.
+        </p>
+
+        <h2>13. Changes to this policy</h2>
+        <p>
+          If we change this policy, we'll update the "Last updated" date and post the new version at
+          <a href="https://ourpot.heartit.tech/privacy/">https://ourpot.heartit.tech/privacy/</a>.
+          Material changes will also be noted in the app's release notes. Because OurPot collects
+          nothing, changes will typically clarify wording rather than expand data use.
+        </p>
+
+        <h2>14. Contact</h2>
+        <p>Questions about this policy or OurPot's privacy design:</p>
+        <p>
+          heartIT<br />
+          <a href="mailto:rahulgarg_su@proton.me">rahulgarg_su@proton.me</a><br />
+          <a href="https://heartit.tech/">https://heartit.tech/</a>
+        </p>
+
+
+        <p class="page-note">
+          OurPot is a peer-to-peer household ledger. This page is served as static HTML with no
+          third-party fonts, scripts, or trackers.
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div>
+            <span class="serif" style="font-size: 20px">ourpot</span>
+            <p>A quiet notebook for what a household spends. Kept alone or shared, on your own phones.</p>
+          </div>
+          <div>
+            <span class="label">Product</span>
+            <ul>
+              <li><a href="../#what">What it is</a></li>
+              <li><a href="../#inside">Inside the app</a></li>
+              <li><a href="../#sync">How it syncs</a></li>
+              <li><a href="../#limits">Honest limits</a></li>
+              <li><a href="../#faq">Questions</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">Trust</span>
+            <ul>
+              <li><a href="./" aria-current="page">Privacy policy</a></li>
+              <li><a href="../#sync">How sync works</a></li>
+              <li><a href="../#inside">Your data</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">Contact</span>
+            <ul>
+              <li><a href="mailto:rahulgarg_su@proton.me">rahulgarg_su@proton.me</a></li>
+              <li><a href="https://heartit.tech/">heartit.tech</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>&copy; 2026 heartIT. Apache-2.0.</span>
+          <a href="https://heartit.tech/" target="_blank" rel="noopener">
+            <img src="../heartit-logo-44.webp" alt="" width="44" height="44" />
+            <span>heartIT</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Theme: system -> light -> dark, the same three states the app offers.
+      ;(function () {
+        const btn = document.getElementById('theme-btn')
+        const label = document.getElementById('theme-label')
+        if (!btn || !label) return
+
+        const root = document.documentElement
+        const KEY = 'ourpot.theme'
+        const ORDER = ['system', 'light', 'dark']
+        const NAMES = { system: 'Auto', light: 'Light', dark: 'Dark' }
+        const GROUND = { light: '#f9faf2', dark: '#14110d' }
+
+        let mode = 'system'
+        try {
+          const saved = localStorage.getItem(KEY)
+          if (saved === 'light' || saved === 'dark') mode = saved
+        } catch (err) {
+          /* storage unavailable */
+        }
+
+        // The two <meta name="theme-color"> tags are keyed to the OS query, so a
+        // forced theme needs one that always matches. First match wins, so it
+        // goes at the front of <head> and is removed again on 'system'.
+        function paintChrome() {
+          const existing = document.getElementById('theme-color-forced')
+          if (mode === 'system') {
+            if (existing) existing.remove()
+            return
+          }
+          const meta = existing || document.createElement('meta')
+          meta.id = 'theme-color-forced'
+          meta.name = 'theme-color'
+          meta.content = GROUND[mode]
+          if (!existing) document.head.insertBefore(meta, document.head.firstChild)
+        }
+
+        function apply() {
+          if (mode === 'system') root.removeAttribute('data-theme')
+          else root.setAttribute('data-theme', mode)
+          label.textContent = NAMES[mode]
+          btn.setAttribute('aria-label', 'Theme: ' + NAMES[mode].toLowerCase() + '. Change.')
+          paintChrome()
+        }
+
+        btn.addEventListener('click', () => {
+          mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length]
+          try {
+            if (mode === 'system') localStorage.removeItem(KEY)
+            else localStorage.setItem(KEY, mode)
+          } catch (err) {
+            /* preference is session-only */
+          }
+          apply()
+        })
+
+        apply()
+      })()
+
+      // Collapsed nav on small screens. The links are in the bar by default,
+      // so this only ever tidies them away — it never hides the only copy.
+      ;(function () {
+        const btn = document.getElementById('menu-btn')
+        const links = document.getElementById('nav-links')
+        if (!btn || !links) return
+
+        function setOpen(open) {
+          links.classList.toggle('open', open)
+          btn.setAttribute('aria-expanded', String(open))
+          btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+        }
+
+        btn.addEventListener('click', () => {
+          setOpen(btn.getAttribute('aria-expanded') !== 'true')
+        })
+        // Closing on navigation matters: an open menu makes the bar taller
+        // than the scroll-padding that keeps anchors clear of it.
+        links.addEventListener('click', (e) => {
+          if (e.target.closest('a')) setOpen(false)
+        })
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setOpen(false)
+        })
+      })()
+
+    </script>
+  </body>
+</html>
