@@ -761,7 +761,7 @@
           <div class="meta">
             <div>
               <strong>Last updated:</strong>
-              2 October 2026
+              6 October 2026
             </div>
             <div>
               <strong>Applies to:</strong> the OurPot mobile app for iOS (bundle
@@ -854,7 +854,8 @@
                 <td><strong>Household identity</strong></td>
                 <td>your cryptographic keys and 24-word recovery phrase</td>
                 <td>
-                  The device's secure storage (iOS Keychain / Android Keystore-backed secure store)
+                  The recovery phrase: the device's secure storage (iOS Keychain / Android
+                  Keystore-backed secure store). The keys derived from it: the app's private storage
                 </td>
                 <td>
                   The recovery phrase never leaves the device automatically. Public keys are shared
@@ -868,6 +869,12 @@
                 <td>Household devices only</td>
               </tr>
               <tr>
+                <td><strong>Names</strong></td>
+                <td>the display name you give yourself (optional) and your household's name</td>
+                <td>Locally + synced to household devices</td>
+                <td>Household devices only</td>
+              </tr>
+              <tr>
                 <td><strong>App preferences</strong></td>
                 <td>local UI/app settings</td>
                 <td>Locally</td>
@@ -877,9 +884,11 @@
           </table>
         </div>
         <p>
-          OurPot does <strong>not</strong> ask for or collect your name, email, phone number,
-          contacts, location, advertising identifiers, or any account credentials — because it has no
-          accounts.
+          OurPot does <strong>not</strong> ask for or collect your email, phone number, contacts,
+          location, advertising identifiers, or any account credentials — because it has no
+          accounts. The only personal name it asks for is an optional display name, so your
+          household can see who paid; like the rest of the ledger, it stays on your household's
+          devices.
         </p>
 
         <h2>3. What we collect about you: nothing</h2>
@@ -956,9 +965,10 @@
           We do not operate the DHT or relay infrastructure your household sync depends on, do not log
           it, and receive nothing from it. The update drive is the one piece of network infrastructure
           we do run, and it is disclosed above rather than folded into that denial. If you are in an
-          environment where exposing your IP address is a concern, you can use OurPot in
-          <strong>solo mode</strong> (a single device, no sync) — note that solo mode stops household
-          sync but not the update channel, so only an offline device or a VPN covers that.
+          environment where exposing your IP address is a concern, note that using OurPot on a single
+          device does not take it off the network: a one-device household still announces itself on
+          the DHT under its household's sync identifier, ready for a device you add later, and the
+          update channel stays on too. Only an offline device or a VPN covers that.
         </p>
 
         <h2>5. Sharing within your household</h2>
@@ -988,8 +998,9 @@
         <h2>6. Diagnostics you choose to share</h2>
         <p>
           For troubleshooting, Settings offers <strong>"Share diagnostic report"</strong> and
-          <strong>"Recent crashes"</strong>. These are
-          <strong>never sent automatically and never sent to us.</strong> When you tap them, the app
+          <strong>"Recent crashes"</strong>, plus a support-only <strong>"Diagnostics"</strong>
+          screen that stays hidden until you unlock it from the About screen. These are
+          <strong>never sent automatically and never sent to us.</strong> When you tap one, the app
           hands a file to your phone's normal share sheet, and <strong>you</strong> decide where it
           goes (e.g. emailing a maintainer).
         </p>
@@ -998,12 +1009,16 @@
           metadata (command types, short identifiers, timestamps, payload sizes), a few connectivity
           readings taken at the moment you export it (whether syncing is running, whether your network
           lets devices connect directly, how many devices are connected right now, and whether
-          Bluetooth is on and in what state), recent on-device crash logs, and a tail of the app's own
-          technical log (the warn/error lines it writes for itself, redacted as they are written) —
-          but <strong>not</strong> your individual entries, notes, payer identities, or receipts (a
-          consistency-check diagnostic can carry a monthly total, and the in-app consent sheet says
-          so). The connected-device figure is a count only — the devices' own identities are
-          deliberately left out. You control whether to share it and with whom.
+          Bluetooth is on and in what state), connection counters kept since the app last started
+          (connections attempted, opened and closed, network lookups and timeouts, and whether the
+          device was online and behind a firewall — counts and yes/no only, no addresses or keys),
+          recent on-device crash logs, and a tail of the app's own technical log (the warn/error
+          lines it writes for itself, redacted as they are written) — but <strong>not</strong> your
+          individual entries, amounts, notes, payer identities, or receipts. The connected-device
+          figure is a count only — the devices' own identities are deliberately left out. The
+          Diagnostics screen's snapshot adds the latest 50 rejection codes with their timestamps, and
+          some of those can carry a monthly total; its consent sheet says so. You control whether to
+          share either, and with whom.
         </p>
 
         <h2>7. Device permissions and why OurPot asks</h2>
@@ -1089,8 +1104,9 @@
             the discovery/relay infrastructure cannot.
           </li>
           <li>
-            Your recovery phrase and identity keys are kept in the device's OS-backed secure storage
-            (Keychain / Android Keystore).
+            Your recovery phrase is kept in the device's OS-backed secure storage (Keychain /
+            Android Keystore). The keys the app derives from it to run your household are held in the
+            app's private storage, which your device's own encryption protects.
           </li>
           <li>
             Your household's ledger and receipts are also encrypted on the device with a key that
