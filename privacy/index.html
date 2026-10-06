@@ -1051,10 +1051,16 @@
           <li><strong>Vibration</strong> — for haptic feedback.</li>
         </ul>
         <p>
-          On Android, OurPot explicitly <strong>blocks</strong> audio-recording and overlay
-          permissions. Legacy external-storage permissions remain declared for Android 12 and earlier
-          by third-party dependencies (they are inert on Android 13+), but OurPot itself does not read
-          or write shared external storage. OurPot also does not allow OS-level cloud backup of its
+          On Android, OurPot explicitly <strong>blocks</strong> the audio-recording, overlay and
+          photo-library-read (<code>READ_MEDIA_IMAGES</code>) permissions: on Android 13 and later, a
+          receipt you attach comes through the system photo picker, which needs no permission. Legacy
+          external-storage permissions remain declared for Android 12 and earlier by third-party
+          dependencies (they are inert on Android 13+), but OurPot itself does not read or write shared
+          external storage. On Android 14 and later, a component OurPot uses to keep the
+          recovery-phrase and invite screens out of screenshots also declares the
+          screenshot-detection permission (<code>DETECT_SCREEN_CAPTURE</code>), which the system
+          grants at install; OurPot never uses screenshot detection, and nothing about your
+          screenshots is recorded or sent. OurPot also does not allow OS-level cloud backup of its
           data (<code>allowBackup=false</code>) so your ledger isn't copied off-device by the
           platform.
         </p>
