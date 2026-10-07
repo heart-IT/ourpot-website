@@ -761,7 +761,7 @@
           <div class="meta">
             <div>
               <strong>Last updated:</strong>
-              6 October 2026
+              7 October 2026
             </div>
             <div>
               <strong>Applies to:</strong> the OurPot mobile app for iOS (bundle
@@ -781,8 +781,10 @@
 
         <ul>
           <li>
-            <strong>No accounts. No server. No cloud.</strong> You never sign up, and there is no
-            OurPot server that your data passes through or lives on.
+            <strong>No accounts. No cloud. Nothing stored on a server.</strong> You never sign up,
+            and your data never lives on a server of ours or anyone's. The one server we run for
+            sync is a relay: when two of your phones cannot reach each other directly, it passes
+            their encrypted traffic along without being able to read it or keeping any of it.
           </li>
           <li>
             <strong>We don't collect anything.</strong> No analytics, no telemetry, no advertising, no
@@ -791,21 +793,22 @@
           </li>
           <li>
             <strong>Your ledger lives on your devices.</strong> Expenses, categories, receipts, and
-            your household identity are stored locally and synced <strong>directly</strong> between
-            the phones in your household.
+            your household identity are stored locally and synced between the phones in your
+            household — <strong>directly</strong> whenever their networks allow it.
           </li>
           <li>
             <strong>Sync is peer-to-peer and encrypted in transit.</strong> Devices find each other
-            over a public peer-to-peer network and connect directly; the data they exchange is
-            encrypted so only your household's devices can read it.
+            over a public peer-to-peer network and connect directly, or through our relay when their
+            networks block that; either way the data they exchange is encrypted so only your
+            household's devices can read it.
           </li>
         </ul>
 
         <p>
           The rest of this document explains the details, including the one place reality is more
           nuanced than "nothing leaves your phone": connecting two phones over the internet
-          necessarily exposes their network addresses to the infrastructure that helps them find each
-          other.
+          necessarily exposes their network addresses to the infrastructure that helps them find and
+          reach each other.
         </p>
 
         <h2>1. Who the "data controller" is</h2>
@@ -813,14 +816,16 @@
           OurPot has no central operator that holds your data, so there is no controller in the usual
           sense for the contents of your ledger —
           <strong>you and the members of your household are.</strong> heartIT publishes the app and is
-          responsible for this policy and for the app's code, but does not receive, store, or have
-          access to your ledger, identity keys, or receipts.
+          responsible for this policy and for the app's code, but does not store or have access to
+          your ledger, identity keys, or receipts. When our relay (§4) carries a connection, it
+          forwards them encrypted and cannot open them.
         </p>
 
         <h2>2. What information OurPot handles, and where it lives</h2>
         <p>
           Everything below is created by you and stored <strong>on your own device(s)</strong>. None
-          of it is sent to us.
+          of it is sent to us in a form we can read: when our relay (§4) carries a connection, it
+          passes on encrypted bytes it cannot open and keeps none of them.
         </p>
         <div class="table-wrap">
           <table>
@@ -913,29 +918,45 @@
         <h2>4. How sync works, and what is exposed on the network</h2>
         <p>This is the one area where "nothing leaves your phone" needs an honest footnote.</p>
         <p>
-          To keep your household ledger in sync without a server, your devices connect to each other
-          <strong>directly</strong> over a public peer-to-peer network (built on the Hyperswarm /
-          Hypercore protocols). Three things follow from that:
+          To keep your household ledger in sync without a server that stores it, your devices
+          connect to each other over a public peer-to-peer network (built on the Hyperswarm /
+          Hypercore protocols) — <strong>directly</strong> whenever their networks allow it. Four
+          things follow from that:
         </p>
         <ol>
           <li>
             <strong>Discovery and connection use public peer-to-peer infrastructure.</strong> To find
             your other household devices and punch through home routers/firewalls, your device
             contacts public distributed-hash-table (DHT) nodes and may route the initial handshake
-            through public relay nodes. These are decentralized, community/operator-run nodes — not an
-            OurPot server — but they are third parties on the network path.
+            through them. These are decentralized, community/operator-run nodes — not an OurPot
+            server — but they are third parties on the network path.
           </li>
           <li>
             <strong>Your IP address is visible to peers and to that infrastructure.</strong> As with
             <em>any</em> networked app (including ordinary client–server apps), establishing a
-            connection reveals your device's network address to the peers it connects to and to the
-            discovery/relay infrastructure. An observer who already knows your household's public sync
-            identifier could learn that a device is online and its approximate network location.
+            connection reveals your device's network address to the peers it connects to, to the
+            discovery infrastructure, and to our relay when it carries the connection (point 3). An
+            observer who already knows your household's public sync identifier could learn that a
+            device is online and its approximate network location.
             <strong
               >The contents of your ledger are encrypted in transit and are not readable by this
               infrastructure or by uninvited peers</strong
             >
             — only by devices you have added to your household.
+          </li>
+          <li>
+            <strong
+              >When two of your devices cannot connect directly, the connection goes through a relay
+              we run.</strong
+            >
+            Some networks — most often two phones that are both on mobile data — block a direct
+            connection. Then the two devices connect through a relay server we operate, which passes
+            their traffic along. What it carries is the same encrypted stream the devices would
+            exchange directly: it cannot read your ledger, it is not a member of your household, and
+            it stores nothing. While it carries a connection it sees both devices' IP addresses, the
+            public keys their connection uses, and how much traffic passes and when; we keep no logs
+            of any of it. As soon as the devices find a direct path, the relay drops out. It runs on a
+            server we rent from DigitalOcean (§11).
           </li>
           <li>
             <strong>App updates travel over a separate peer-to-peer channel that we do seed.</strong>
@@ -962,9 +983,9 @@
           sync, and nothing is collected. See §7 for the permission.
         </p>
         <p>
-          We do not operate the DHT or relay infrastructure your household sync depends on, do not log
-          it, and receive nothing from it. The update drive is the one piece of network infrastructure
-          we do run, and it is disclosed above rather than folded into that denial. If you are in an
+          We do not operate the DHT your household sync depends on, do not log it, and receive nothing
+          from it. The relay and the update drive are the network infrastructure we do run, and both
+          are disclosed above rather than folded into that denial. If you are in an
           environment where exposing your IP address is a concern, note that using OurPot on a single
           device does not take it off the network: a one-device household still announces itself on
           the DHT under its household's sync identifier, ready for a device you add later, and the
@@ -1068,8 +1089,8 @@
         <h2>8. Keeping, deleting, and recovering your data</h2>
         <ul>
           <li>
-            <strong>You hold the data.</strong> Because there is no server, deleting data is something
-            you do on your own device(s).
+            <strong>You hold the data.</strong> Because no server holds a copy, deleting data is
+            something you do on your own device(s).
           </li>
           <li>
             <strong>Editing or deleting an entry.</strong> OurPot is a notebook: an edit or a
@@ -1091,7 +1112,7 @@
           <li>
             <strong>Recovery phrase.</strong> Your 24-word phrase restores
             <strong>who you are</strong> on a new device — your identity keys — not
-            <strong>what you wrote down</strong>. Because there is no server, the entries themselves
+            <strong>what you wrote down</strong>. Because no server holds a copy, the entries themselves
             come back from one of two places: a household device that still holds them, or an
             encrypted backup file you exported beforehand (Settings →
             <em>Export encrypted backup</em>, offered while your household is still a single device —
@@ -1139,11 +1160,12 @@
 
         <h2>11. International use and transfers</h2>
         <p>
-          OurPot has no servers, so we perform no cross-border transfers of your data to or through
-          us. Peer-to-peer sync sends your encrypted data directly between your own devices, which may
-          be in different countries; the routing/discovery infrastructure (§4) is globally
-          distributed. The data exchanged remains encrypted in transit and readable only by your
-          household devices.
+          OurPot stores none of your data on servers. Peer-to-peer sync sends your encrypted data
+          between your own devices, which may be in different countries; the discovery
+          infrastructure (§4) is globally distributed. Our relay and our update seeder (§4, points 3
+          and 4) run on a DigitalOcean server in Bengaluru, India, so a connection to either passes
+          through India, wherever your devices are; the update channel carries no ledger data. The data exchanged remains encrypted in transit and readable
+          only by your household devices.
         </p>
 
         <h2>12. Your rights</h2>
