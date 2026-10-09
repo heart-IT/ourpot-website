@@ -1,7 +1,12 @@
 # The two domain-association files must reach Apple's and Google's verifiers as
-# application/json over a direct 200 — the Apple one has no extension, so Apache
-# would otherwise guess text/plain. release/well-known/README.md in the app repo
-# says what each file binds.
+# application/json over a direct 200 — the Apple one has no extension.
+# On this host (Cloudways: nginx → Varnish → Apache) nginx serves static files
+# itself, so Apache never consults this file for them: measured 2026-10-09,
+# the Apple file came back application/octet-stream (nginx's default_type) and
+# assetlinks.json application/json (nginx's .json mapping), both with nginx
+# etags. The type for the Apple file is therefore set at the edge, by a
+# Cloudflare response-header transform rule on its path. These rules stay for
+# any host that does route the path through Apache.
 <Files "apple-app-site-association">
   ForceType application/json
 </Files>
