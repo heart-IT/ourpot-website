@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "tech.heartit.ourpot",
+      "sha256_cert_fingerprints": [
+        "DF:3D:F9:AF:B9:20:B6:4E:AC:5F:9D:8C:B2:AC:58:80:89:2C:9B:B0:6B:2F:B0:85:04:9C:E4:69:E3:0D:40:51"
+      ]
+    }
+  }
+]

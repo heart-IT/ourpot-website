@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /pair
 
 Sitemap: https://ourpot.heartit.tech/sitemap.xml
