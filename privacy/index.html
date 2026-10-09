@@ -6,7 +6,7 @@
     <title>Privacy policy — OurPot</title>
     <meta
       name="description"
-      content="OurPot privacy policy — a private, peer-to-peer household ledger with no server, no accounts, and no data collection."
+      content="OurPot privacy policy — a private, peer-to-peer household ledger with nothing kept on a server, no accounts, and no data collection."
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#f9faf2" media="(prefers-color-scheme: light)" />
@@ -19,7 +19,7 @@
     <meta property="og:title" content="Privacy policy — OurPot" />
     <meta
       property="og:description"
-      content="No accounts, no server, no data collection: how OurPot handles your household ledger."
+      content="No accounts, nothing kept on a server, no data collection: how OurPot handles your household ledger."
     />
     <meta property="og:url" content="https://ourpot.heartit.tech/privacy/" />
     <meta property="og:site_name" content="OurPot" />
@@ -761,7 +761,7 @@
           <div class="meta">
             <div>
               <strong>Last updated:</strong>
-              7 October 2026
+              9 October 2026
             </div>
             <div>
               <strong>Applies to:</strong> the OurPot mobile app for iOS (bundle
@@ -964,7 +964,8 @@
             A released build joins one worldwide discovery topic — the update drive published by us,
             the same topic for every OurPot install — and fetches the app bundle from whichever peers
             hold it, including the always-online machines <strong>we</strong> run so the drive stays
-            available. Connecting to one of those machines reveals your device's IP address to us, in
+            available; when your phone cannot reach any of them directly, that connection goes through
+            the same relay (point 3). Connecting to one of those machines reveals your device's IP address to us, in
             the same way that any app's update check reveals it to that app's publisher. Two limits on
             what that can tell us: <strong>no ledger data travels on this channel</strong> — it
             carries the app bundle, in one direction, and nothing of yours goes out — and the app
@@ -1164,7 +1165,8 @@
           between your own devices, which may be in different countries; the discovery
           infrastructure (§4) is globally distributed. Our relay and our update seeder (§4, points 3
           and 4) run on a DigitalOcean server in Bengaluru, India, so a connection to either passes
-          through India, wherever your devices are; the update channel carries no ledger data. The data exchanged remains encrypted in transit and readable
+          through India, wherever your devices are; the update channel carries no ledger data. While a
+          release replicates, the publisher's own computer may also serve the update drive. The data exchanged remains encrypted in transit and readable
           only by your household devices.
         </p>
 

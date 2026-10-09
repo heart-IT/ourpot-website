@@ -6,7 +6,7 @@
     <title>OurPot — A quiet notebook for what you spend</title>
     <meta
       name="description"
-      content="A private household ledger for one person or several. No account, no server, no ads \u2014 your entries stay on your own phones and sync directly between them."
+      content="A private household ledger for one person or several. No account, nothing kept on a server, no ads \u2014 your entries stay on your own phones and sync directly between them."
     />
     <meta name="theme-color" content="#f9faf2" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
@@ -18,7 +18,7 @@
     <meta property="og:title" content="OurPot — A quiet notebook for what you spend" />
     <meta
       property="og:description"
-      content="A private household ledger for one person or several. No account, no server, no ads."
+      content="A private household ledger for one person or several. No account, nothing kept on a server, no ads."
     />
     <meta property="og:url" content="https://ourpot.heartit.tech/" />
     <meta property="og:site_name" content="OurPot" />
@@ -28,7 +28,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="OurPot \u2014 a quiet notebook for what you spend. No account, no server."
+      content="OurPot \u2014 a quiet notebook for what you spend. No account, nothing kept on a server."
     />
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -42,7 +42,7 @@
         "operatingSystem": "iOS, Android",
         "isAccessibleForFree": true,
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
-        "description": "A private household ledger for one person or several. No account, no server, no ads \u2014 entries stay on your own phones and sync directly between them.",
+        "description": "A private household ledger for one person or several. No account, nothing kept on a server, no ads \u2014 entries stay on your own phones and sync directly between them.",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "author": { "@type": "Organization", "name": "heartIT", "url": "https://heartit.tech/" }
       }
@@ -1340,8 +1340,8 @@
             <h1>A quiet notebook for what you spend.</h1>
             <p>
               Write down what you spend. See it in a shape you can read. Kept alone, or shared
-              with the people you live with — on your phones only, with no account and no
-              server.
+              with the people you live with — on your phones only, with no account and nothing
+            kept on a server.
             </p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="#get">Get OurPot</a>
@@ -1367,7 +1367,7 @@
         <div class="wrap">
           <ul>
             <li>No account</li>
-            <li>No server</li>
+            <li>Nothing kept on a server</li>
             <li>Encrypted in transit</li>
             <li>CSV in and out</li>
             <li>No ads, ever</li>
@@ -1400,11 +1400,13 @@
         <div class="wrap">
           <div class="head reveal">
             <span class="label">How it syncs</span>
-            <h2>There is no OurPot server.</h2>
+            <h2>No OurPot server holds your notebook.</h2>
             <p>
               An entry is written to your own phone first, and only then shared &mdash; directly
-              &mdash; with the other phones in your household. No machine of ours sits in the
-              middle, so there is nothing for a write to wait on. Try taking a phone offline.
+              &mdash; with the other phones in your household. No machine of ours keeps a copy
+              &mdash; a relay we run only passes the encrypted stream along when two phones cannot
+              reach each other directly &mdash; so there is nothing for a write to wait on. Try
+              taking a phone offline.
             </p>
           </div>
 
@@ -1765,7 +1767,7 @@
             </li>
             <li>
               <h3>No ads, no purchases, no subscription</h3>
-              <p>Free, and not the kind of free where you are the product. There is no server to pay for.</p>
+              <p>Free, and not the kind of free where you are the product. The one small server we run &mdash; a relay for phones that cannot connect directly &mdash; holds nothing of yours and is ours to pay for.</p>
             </li>
             <li>
               <h3>No scores, streaks, or advice</h3>
@@ -1783,7 +1785,7 @@
         <div class="wrap">
           <div class="head reveal">
             <span class="label">Honest limits</span>
-            <h2>What having no server costs you.</h2>
+            <h2>What keeping nothing on a server costs you.</h2>
             <p>
               These are real trade-offs in this release, not fine print. You should know them before you
               trust a notebook with a year of your spending.
@@ -1816,7 +1818,7 @@
             </details>
             <details>
               <summary>Some routers never let two phones meet.</summary>
-              <div class="answer"><p>Direct connections are made by punching through your routers. A minority of networks &mdash; carrier-grade NAT, some office Wi-Fi &mdash; refuse to be punched through, and with no relay of ours to fall back on, those two phones will not sync over the internet. They will still sync on a shared Wi-Fi network, or over Bluetooth in the same room.</p></div>
+              <div class="answer"><p>Direct connections are made by punching through your routers. A minority of networks &mdash; carrier-grade NAT, some office Wi-Fi &mdash; refuse to be punched through; then the two phones connect through a relay we run, which passes their encrypted stream along without reading or keeping it. While that relay is down they will not sync over the internet &mdash; they still sync on a shared Wi-Fi network, or over Bluetooth in the same room.</p></div>
             </details>
             <details>
               <summary>Phone only, and no telemetry.</summary>
@@ -1889,8 +1891,9 @@
               <div class="answer">
                 <p>
                   OurPot is under Apache-2.0: you may use it, change it and pass it on, on the
-                  terms in that licence. It costs nothing, and there is no server bill sitting
-                  behind it that would have to be paid by someone later.
+                  terms in that licence. It costs nothing, and your notebook sits on no server whose
+              bill someone would have to pay later &mdash; the one small relay we run is ours to pay
+              for, and nothing of yours is kept on it.
                 </p>
               </div>
             </details>
